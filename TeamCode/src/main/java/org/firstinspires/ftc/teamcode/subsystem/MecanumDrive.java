@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.subsystem;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -22,7 +23,7 @@ public class MecanumDrive {
         this.rightFront = hwMap.get(DcMotor.class,Constants.MecanumDrive.rightFront);
         this.rightBack = hwMap.get(DcMotor.class,Constants.MecanumDrive.rightBack);
 
-        this.leftFront.setDirection(DcMotor.Direction.REVERSE);
+        this.leftFront.setDirection(DcMotor.Direction.FORWARD);
         this.leftBack.setDirection(DcMotor.Direction.REVERSE);
         this.rightFront.setDirection(DcMotor.Direction.FORWARD);
         this.rightBack.setDirection(DcMotor.Direction.FORWARD);
@@ -43,11 +44,18 @@ public class MecanumDrive {
     }
 
     //strafe drive
-    public void setStrafe(double leftPower, double rightPower) {
-        this.leftFront.setPower(-leftPower);
-        this.leftBack.setPower(leftPower);
-        this.rightFront.setPower(rightPower);
-        this.rightBack.setPower(-rightPower);
+    public void strafeLeft(double Power) {
+        this.leftFront.setPower(-Power);
+        this.leftBack.setPower(Power);
+        this.rightFront.setPower(Power);
+        this.rightBack.setPower(-Power);
+    }
+
+    public void strafeRight(double Power) {
+        this.leftFront.setPower(Power);
+        this.leftBack.setPower(-Power);
+        this.rightFront.setPower(-Power);
+        this.rightBack.setPower(Power);
     }
 
     public void stop() {
