@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.subsystem.MecanumDrive;
 
-@Disabled
+
 @Autonomous(name = "MoveLeft", group = "auto")
 
 public class MoveLeft extends LinearOpMode{
