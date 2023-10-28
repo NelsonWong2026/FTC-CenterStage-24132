@@ -28,4 +28,8 @@ public class Constants {
         public static final String Swing = "swing";
     }
 
+    public static final class Launcher {
+        public static final String Launcher = "launcher";
+    }
+
 }
