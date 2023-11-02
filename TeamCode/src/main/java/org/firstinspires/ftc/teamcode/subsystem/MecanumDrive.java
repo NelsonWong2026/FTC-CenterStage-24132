@@ -23,7 +23,7 @@ public class MecanumDrive {
         this.rightFront = hwMap.get(DcMotor.class,Constants.MecanumDrive.rightFront);
         this.rightBack = hwMap.get(DcMotor.class,Constants.MecanumDrive.rightBack);
 
-        this.leftFront.setDirection(DcMotor.Direction.FORWARD);
+        this.leftFront.setDirection(DcMotor.Direction.REVERSE);
         this.leftBack.setDirection(DcMotor.Direction.REVERSE);
         this.rightFront.setDirection(DcMotor.Direction.FORWARD);
         this.rightBack.setDirection(DcMotor.Direction.FORWARD);
@@ -88,5 +88,20 @@ public class MecanumDrive {
         rightFront.setPower(frontRightPower);
         rightBack.setPower(backRightPower);
 
+        /*double leftDrive = -gamepad.left_stick_y;
+        double rightDrive = -gamepad.right_stick_y;
+
+        leftFront.setPower(leftDrive);
+        leftBack.setPower(leftDrive);
+        rightFront.setPower(rightDrive);
+        rightBack.setPower(rightDrive);
+
+        if (gamepad.left_bumper) {
+            strafeLeft(1);
+        }
+        else if (gamepad.right_bumper) {
+            strafeRight(1);
+        }
+*/
     }
 }

@@ -14,6 +14,10 @@ public class Claw {
 
     }
 
+    public void setClawPos(double Position) {
+        Claw.setPosition(Position);
+    }
+
     public void init(HardwareMap hwMap) {
         this.Claw = hwMap.get(Servo.class, Constants.Claw.Claw);
     }

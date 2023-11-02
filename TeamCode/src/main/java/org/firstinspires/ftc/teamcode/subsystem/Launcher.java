@@ -18,10 +18,10 @@ public class Launcher {
     }
 
     public void setControl(Gamepad gamepad) {
-        if (gamepad.a && gamepad.right_bumper) {
-            Launcher.setPosition(1);
+        if (gamepad.right_bumper) {
+            Launcher.setPosition(0.5);
         }
-        else if (gamepad.a && gamepad.left_bumper) {
+        else if (gamepad.left_bumper) {
             Launcher.setPosition(0);
         }
     }

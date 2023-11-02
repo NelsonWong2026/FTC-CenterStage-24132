@@ -21,15 +21,22 @@ public class Lift {
     }
 
     public void setControl(Gamepad gamepad) {
-        Swing.setPower(-gamepad.right_stick_y);
+        Swing.setPower(gamepad.right_stick_y);
         if (gamepad.dpad_up) {
             Lift.setPower(1);
         }
         else if (gamepad.dpad_down) {
             Lift.setPower(-1);
         }
+        /*else if (gamepad.x) {
+            Swing.setPower(1);
+        }
+        else if (gamepad.y) {
+            Swing.setPower(-1);
+        }*/
         else {
             Lift.setPower(0);
+            Swing.setPower(0);
         }
     }
 }
