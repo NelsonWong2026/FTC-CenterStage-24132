@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.subsystem;
+package org.firstinspires.ftc.teamcode.vision;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
@@ -10,6 +10,7 @@ import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
 import org.opencv.core.Point;
+import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
@@ -32,8 +33,8 @@ public class EasyOpenCV extends LinearOpMode {
     private OpenCvCamera controlHubCam;
     private static final int CAMERA_WIDTH = 640;
     private static final int CAMERA_HEIGHT = 480;
-    public static final double objectWidthInRealWorldUnits = 1;
-    public static final double focalLength = 1;
+    public static final double objectWidthInRealWorldUnits = 3.5;
+    public static final double focalLength = 4;
 
     @Override
     public void runOpMode() {
@@ -66,7 +67,7 @@ public class EasyOpenCV extends LinearOpMode {
 
     class YellowBlobDetectionPipeline extends OpenCvPipeline {
         @Override
-        public Mat proccessFrame(Mat input) {
+        public Mat processFrame(Mat input) {
             Mat yellowMask = preprocessFrame(input);
 
             List<MatOfPoint> contours = new ArrayList<>();
@@ -123,10 +124,21 @@ public class EasyOpenCV extends LinearOpMode {
             for (MatOfPoint contour : contours) {
                 double area = Imgproc.contourArea(contour);
                 if (area > maxArea) {
-
+                    maxArea = area;
+                    largestContour = contour;
                 }
             }
+
+            return largestContour;
         }
 
+        private double calculateWidth(MatOfPoint contour) {
+            Rect boundingRect = Imgproc.boundingRect(contour);
+            return boundingRect.width;
+        }
+    }
+    private static double getDistance(double width) {
+        double distance = (objectWidthInRealWorldUnits * focalLength) / width;
+        return distance;
     }
 }
