@@ -21,11 +21,16 @@ public class Constants {
 
     public static final class Claw {
         public static final String Claw = "claw";
+        public static final String Pivot = "pivot";
+    }
+
+    public static final class Arm {
+        public static final String Arm = "arm";
     }
 
     public static final class Lift {
-        public static final String Lift = "lift";
-        public static final String Swing = "swing";
+        public static final String leftLift = "leftlift";
+        public static final String rightLift = "rightlift";
     }
 
     public static final class Launcher {
