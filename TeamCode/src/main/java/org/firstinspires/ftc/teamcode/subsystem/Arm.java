@@ -15,6 +15,7 @@ public class Arm {
 
     public void init(HardwareMap hwMap) {
         this.Arm = hwMap.get(DcMotor.class, Constants.Arm.Arm);
+        this.Arm.setDirection(DcMotor.Direction.REVERSE);
         this.Arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 

@@ -15,7 +15,7 @@ public class Constants {
     }
 
     public static final class Vision {
-        public static final String camera1 = "camera1";
+        public static final String camera1 = "Webcam 1";
         public static final String camera2 = "camera2";
     }
 
