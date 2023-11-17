@@ -20,7 +20,7 @@ public class PIDF_Arm {
 
     private int target = 0;
 
-    private final double ticks_in_degree = 537.7 / 360;
+    private final double ticks_in_degree = 1680 / 360;
 
     private DcMotorEx arm_motor;
 
@@ -29,7 +29,7 @@ public class PIDF_Arm {
 
         arm_motor = hwMap.get(DcMotorEx.class, Constants.Arm.Arm);
     }
-
+Noth
     public void setControl(Gamepad gamepad) {
         if (gamepad.dpad_up) {
             target = 0;
