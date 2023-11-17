@@ -20,10 +20,10 @@ public class Arm {
     }
 
     public void setControl(Gamepad gamepad) {
-        if (gamepad.dpad_up) {
+        if (gamepad.dpad_right) {
             Arm.setPower(1);
         }
-        else if (gamepad.dpad_down) {
+        else if (gamepad.dpad_left) {
             Arm.setPower(-1);
         }
         else {

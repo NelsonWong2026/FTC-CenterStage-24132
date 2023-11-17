@@ -8,6 +8,7 @@ import org.firstinspires.ftc.teamcode.subsystem.Launcher;
 import org.firstinspires.ftc.teamcode.subsystem.Arm;
 import org.firstinspires.ftc.teamcode.subsystem.Lift;
 import org.firstinspires.ftc.teamcode.subsystem.MecanumDrive;
+import org.firstinspires.ftc.teamcode.subsystem.PIDF_Arm;
 
 @TeleOp(name="Main Teleop Mode (No Timer)", group="OpMode")
 public class MainTeleopNoTimer extends OpMode {
@@ -16,6 +17,7 @@ public class MainTeleopNoTimer extends OpMode {
     private Arm arm = new Arm();
     private Launcher launcher = new Launcher();
     private Lift lift = new Lift();
+    private PIDF_Arm pidf_arm = new PIDF_Arm();
 
     @Override
     public void init() {
@@ -24,6 +26,7 @@ public class MainTeleopNoTimer extends OpMode {
         this.arm.init(hardwareMap);
         this.launcher.init(hardwareMap);
         this.lift.init(hardwareMap);
+        this.pidf_arm.init(hardwareMap);
         telemetry.addData("Status","Initialized");
         telemetry.update();
     }
@@ -35,6 +38,7 @@ public class MainTeleopNoTimer extends OpMode {
         this.arm.setControl(gamepad2);
         this.launcher.setControl(gamepad2);
         this.lift.setControl(gamepad1);
+        this.pidf_arm.setControl(gamepad2);
 
         telemetry.addData("Status","Enabled");
         telemetry.update();

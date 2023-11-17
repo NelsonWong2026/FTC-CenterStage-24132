@@ -7,37 +7,33 @@ import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.Gamepad;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.Constants;
 
-public class PIDF_Arm {
+@Config
+@TeleOp(name = "PIDF_Arm", group = "OpMode")
+public class PIDF_ArmTuner extends OpMode {
     private PIDController controller;
 
-    private double p = 0, i = 0, d = 0;
-    private double f = 0;
+    public static double p = 0, i = 0, d = 0;
+    public static double f = 0;
 
-    private int target = 0;
+    public static int target = 0;
 
     private final double ticks_in_degree = 537.7 / 360;
 
     private DcMotorEx arm_motor;
 
-    public void init(HardwareMap hwMap) {
+    @Override
+    public void init() {
         controller = new PIDController(p, i, d);
+        telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
 
-        arm_motor = hwMap.get(DcMotorEx.class, Constants.Arm.Arm);
+        arm_motor = hardwareMap.get(DcMotorEx.class, Constants.Arm.Arm);
     }
 
-    public void setControl(Gamepad gamepad) {
-        if (gamepad.dpad_up) {
-            target = 0;
-        }
-        else if (gamepad.dpad_down) {
-            target = 0;
-        }
-
+    @Override
+    public void loop() {
         controller.setPID(p, i, d);
         int armPos = arm_motor.getCurrentPosition();
         double pid = controller.calculate(armPos, target);
@@ -46,5 +42,9 @@ public class PIDF_Arm {
         double power = pid + ff;
 
         arm_motor.setPower(power);
+
+        telemetry.addData("pos", armPos);
+        telemetry.addData("target", target);
+        telemetry.update();
     }
 }
