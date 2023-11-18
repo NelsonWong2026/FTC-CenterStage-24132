@@ -4,6 +4,7 @@ import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.controller.PIDController;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -11,6 +12,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import org.firstinspires.ftc.teamcode.Constants;
 
 @Config
+@Disabled
 @TeleOp(name = "PIDF_Arm", group = "OpMode")
 public class PIDF_ArmTuner extends OpMode {
     private PIDController controller;
@@ -20,7 +22,7 @@ public class PIDF_ArmTuner extends OpMode {
 
     public static int target = 0;
 
-    private final double ticks_in_degree = 537.7 / 360;
+    private final double ticks_in_degree = 1680 / 360;
 
     private DcMotorEx arm_motor;
 

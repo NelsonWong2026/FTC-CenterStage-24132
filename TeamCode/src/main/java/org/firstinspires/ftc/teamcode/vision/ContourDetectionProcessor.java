@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.vision;
 
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -8,8 +9,12 @@ import android.text.TextPaint;
 
 import androidx.annotation.NonNull;
 
+import org.firstinspires.ftc.robotcore.external.function.Consumer;
+import org.firstinspires.ftc.robotcore.external.function.Continuation;
+import org.firstinspires.ftc.robotcore.external.stream.CameraStreamSource;
 import org.firstinspires.ftc.robotcore.internal.camera.calibration.CameraCalibration;
 import org.firstinspires.ftc.vision.VisionProcessor;
+import org.opencv.android.Utils;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
@@ -21,9 +26,10 @@ import org.openftc.easyopencv.OpenCvCamera;
 
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.DoubleSupplier;
 
-public class ContourDetectionProcessor implements VisionProcessor {
+public class ContourDetectionProcessor implements VisionProcessor, CameraStreamSource {
 
     private final DoubleSupplier minArea, left, right;
     private final Scalar upper, lower;
@@ -36,6 +42,10 @@ public class ContourDetectionProcessor implements VisionProcessor {
     private PropPositions previousPropPosition;
     private PropPositions recordedPropPosition = PropPositions.UNFOUND;
     private OpenCvCamera controlHubCam;
+
+    private final AtomicReference<Bitmap> lastFrame = new AtomicReference<>(Bitmap.createBitmap(1, 1, Bitmap.Config.RGB_565));
+
+    private Mat frame_HSV = new Mat();
 
     public ContourDetectionProcessor(@NonNull Scalar lower, @NonNull Scalar upper, DoubleSupplier minArea, DoubleSupplier left, DoubleSupplier right) {
         this.contours = new ArrayList<>();
@@ -62,8 +72,10 @@ public class ContourDetectionProcessor implements VisionProcessor {
 
     @Override
     public void init(int width, int height, CameraCalibration calibration) {
-
+        lastFrame.set(Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565));
     }
+
+
 
     public double getLargestContourX() {
         return largestContourX;
@@ -77,17 +89,21 @@ public class ContourDetectionProcessor implements VisionProcessor {
 
     @Override
     public Object processFrame(Mat frame, long captureTimeNanos) {
-        Imgproc.cvtColor(frame, frame, Imgproc.COLOR_RGB2HSV);
+        Imgproc.cvtColor(frame, frame_HSV, Imgproc.COLOR_RGB2HSV);
 
-        Core.inRange(frame, lower, upper, frame);
+        Core.inRange(frame_HSV, lower, upper, frame_HSV);
 
         contours.clear();
 
-        Imgproc.findContours(frame, contours, hierarchy, Imgproc.RETR_LIST, Imgproc.CHAIN_APPROX_SIMPLE);
+        Imgproc.findContours(frame_HSV, contours, hierarchy, Imgproc.RETR_LIST, Imgproc.CHAIN_APPROX_SIMPLE);
 
         largestContourArea = -1;
 
         largestContour = null;
+
+        Bitmap b = Bitmap.createBitmap(frame_HSV.width(), frame_HSV.height(), Bitmap.Config.RGB_565);
+        Utils.matToBitmap(frame, b);
+        lastFrame.set(b);
 
         double minArea = this.minArea.getAsDouble();
 
@@ -126,7 +142,7 @@ public class ContourDetectionProcessor implements VisionProcessor {
 
         previousPropPosition = propPosition;
 
-        return frame;
+        return frame_HSV;
     }
 
     @Override
@@ -148,6 +164,13 @@ public class ContourDetectionProcessor implements VisionProcessor {
         }
     }
 
+
+    @Override
+    public void getFrameBitmap(Continuation<? extends Consumer<Bitmap>> continuation) {
+        continuation.dispatch(bitmapConsumer -> bitmapConsumer.accept(lastFrame.get()));
+    }
+
+
     public PropPositions getRecordedPropPosition() {
         return recordedPropPosition;
     }
@@ -159,6 +182,8 @@ public class ContourDetectionProcessor implements VisionProcessor {
     public void close() {
         hierarchy.release();
     }
+
+
 
     public enum PropPositions {
         LEFT,

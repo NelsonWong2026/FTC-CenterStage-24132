@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.subsystem;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -15,15 +16,15 @@ public class Arm {
 
     public void init(HardwareMap hwMap) {
         this.Arm = hwMap.get(DcMotor.class, Constants.Arm.Arm);
-        this.Arm.setDirection(DcMotor.Direction.REVERSE);
+        this.Arm.setDirection(DcMotor.Direction.FORWARD);
         this.Arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
     public void setControl(Gamepad gamepad) {
-        if (gamepad.dpad_right) {
+        if (gamepad.dpad_up) {
             Arm.setPower(1);
         }
-        else if (gamepad.dpad_left) {
+        else if (gamepad.dpad_down) {
             Arm.setPower(-1);
         }
         else {

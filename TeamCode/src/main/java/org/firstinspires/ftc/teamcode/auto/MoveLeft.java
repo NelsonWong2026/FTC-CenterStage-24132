@@ -26,7 +26,7 @@ public class MoveLeft extends LinearOpMode{
         claw.init(hardwareMap);
 
         waitForStart();
-        claw.setClawPos(1);
+        //claw.setClawPos(1);
         drive.strafeLeft(0.7);
 
         runtime.reset();
@@ -34,7 +34,7 @@ public class MoveLeft extends LinearOpMode{
 
         }
 
-        claw.setClawPos(0);
+        //claw.setClawPos(0);
         drive.stop();
     }
 
