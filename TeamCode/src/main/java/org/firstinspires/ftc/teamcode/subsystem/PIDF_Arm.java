@@ -7,6 +7,7 @@ import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -28,6 +29,7 @@ public class PIDF_Arm {
         controller = new PIDController(p, i, d);
 
         arm_motor = hwMap.get(DcMotorEx.class, Constants.Arm.Arm);
+        this.arm_motor.setDirection(DcMotorSimple.Direction.FORWARD);
     }
 
     public void setControl(Gamepad gamepad) {
