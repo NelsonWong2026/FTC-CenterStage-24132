@@ -49,5 +49,9 @@ public class Claw {
         else if (gamepad.right_bumper) {
             servoPivot.setPosition(1);
         }*/
+        else {
+            Pivot.setPower(0);
+
+        }
     }
 }
