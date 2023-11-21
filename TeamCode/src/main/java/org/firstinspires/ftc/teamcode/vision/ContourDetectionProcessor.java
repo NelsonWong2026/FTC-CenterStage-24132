@@ -22,7 +22,6 @@ import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.imgproc.Moments;
-import org.openftc.easyopencv.OpenCvCamera;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -41,7 +40,6 @@ public class ContourDetectionProcessor implements VisionProcessor, CameraStreamS
     private MatOfPoint largestContour;
     private PropPositions previousPropPosition;
     private PropPositions recordedPropPosition = PropPositions.UNFOUND;
-    private OpenCvCamera controlHubCam;
 
     private final AtomicReference<Bitmap> lastFrame = new AtomicReference<>(Bitmap.createBitmap(1, 1, Bitmap.Config.RGB_565));
 
@@ -101,9 +99,6 @@ public class ContourDetectionProcessor implements VisionProcessor, CameraStreamS
 
         largestContour = null;
 
-        Bitmap b = Bitmap.createBitmap(frame_HSV.width(), frame_HSV.height(), Bitmap.Config.RGB_565);
-        Utils.matToBitmap(frame, b);
-        lastFrame.set(b);
 
         double minArea = this.minArea.getAsDouble();
 
@@ -142,6 +137,10 @@ public class ContourDetectionProcessor implements VisionProcessor, CameraStreamS
 
         previousPropPosition = propPosition;
 
+        Bitmap b = Bitmap.createBitmap(frame_HSV.width(), frame_HSV.height(), Bitmap.Config.RGB_565);
+        Utils.matToBitmap(frame_HSV, b);
+        lastFrame.set(b);
+
         return frame_HSV;
     }
 
@@ -165,12 +164,6 @@ public class ContourDetectionProcessor implements VisionProcessor, CameraStreamS
     }
 
 
-    @Override
-    public void getFrameBitmap(Continuation<? extends Consumer<Bitmap>> continuation) {
-        continuation.dispatch(bitmapConsumer -> bitmapConsumer.accept(lastFrame.get()));
-    }
-
-
     public PropPositions getRecordedPropPosition() {
         return recordedPropPosition;
     }
@@ -190,5 +183,10 @@ public class ContourDetectionProcessor implements VisionProcessor, CameraStreamS
         MIDDLE,
         RIGHT,
         UNFOUND;
+    }
+
+    @Override
+    public void getFrameBitmap(Continuation<? extends Consumer<Bitmap>> continuation) {
+        continuation.dispatch(bitmapConsumer -> bitmapConsumer.accept(lastFrame.get()));
     }
 }
