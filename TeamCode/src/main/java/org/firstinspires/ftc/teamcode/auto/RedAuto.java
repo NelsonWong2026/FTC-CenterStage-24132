@@ -4,11 +4,14 @@ import android.util.Size;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
+import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.Constants;
+import org.firstinspires.ftc.teamcode.RoadRunnerUtil.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.vision.ContourDetectionProcessor;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.opencv.core.Scalar;
@@ -19,6 +22,7 @@ public class RedAuto extends OpMode {
     private VisionPortal visionPortal;
     private ContourDetectionProcessor contourDetectionProcessor;
     public static int lowerRedHue = 153, upperRedHue = 180;
+    private SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
     @Override
     public void init() {
         Scalar lower = new Scalar(lowerRedHue, 100, 100);
@@ -63,12 +67,17 @@ public class RedAuto extends OpMode {
             recordedPropPosition = ContourDetectionProcessor.PropPositions.MIDDLE;
         }
 
+        Pose2d startPose = new Pose2d();
+
+        drive.setPoseEstimate(startPose);
+
         switch (recordedPropPosition) {
             case LEFT:
-
                 break;
             case UNFOUND:
             case MIDDLE:
+                Trajectory traj1 = drive.trajectoryBuilder(startPose)
+                        .build();
 
                 break;
             case RIGHT:
