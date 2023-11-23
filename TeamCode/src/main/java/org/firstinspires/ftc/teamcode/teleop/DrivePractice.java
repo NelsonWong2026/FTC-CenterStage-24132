@@ -13,6 +13,7 @@ import org.firstinspires.ftc.teamcode.subsystem.PIDF_Arm;
 @TeleOp(name="DrivePractice", group="DrivePractice")
 public class DrivePractice extends OpMode {
     private MecanumDrive drive = new MecanumDrive();
+    private boolean fieldCentric = true;
 
     @Override
     public void init() {
@@ -23,7 +24,7 @@ public class DrivePractice extends OpMode {
 
     @Override
     public void loop() {
-        this.drive.setControl(gamepad1);
+        this.drive.setControl(gamepad1, fieldCentric);
 
         telemetry.addData("Status","Enabled");
         telemetry.update();

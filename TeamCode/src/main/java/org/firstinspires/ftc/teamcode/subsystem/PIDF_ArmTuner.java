@@ -22,7 +22,7 @@ public class PIDF_ArmTuner extends OpMode {
 
     public static int target = 0;
 
-    private final double ticks_in_degree = 1680 / 360;
+    private final double ticks_in_degree = 1680 / 180;
 
     private DcMotorEx arm_motor;
 

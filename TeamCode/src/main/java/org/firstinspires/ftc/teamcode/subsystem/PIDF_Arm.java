@@ -21,7 +21,7 @@ public class PIDF_Arm {
 
     private int target = 0;
 
-    private final double ticks_in_degree = 1680 / 360;
+    private final double ticks_in_degree = 1680 / 180;
 
     private DcMotorEx arm_motor;
 

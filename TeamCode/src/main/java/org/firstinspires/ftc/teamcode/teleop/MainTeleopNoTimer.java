@@ -15,6 +15,7 @@ public class MainTeleopNoTimer extends OpMode {
     private MecanumDrive drive = new MecanumDrive();
     private Claw claw = new Claw();
     private Arm arm = new Arm();
+    private boolean fieldCentric = true;
     /*private Launcher launcher = new Launcher();
     private Lift lift = new Lift();
     private PIDF_Arm pidf_arm = new PIDF_Arm();*/
@@ -33,7 +34,7 @@ public class MainTeleopNoTimer extends OpMode {
 
     @Override
     public void loop() {
-        this.drive.setControl(gamepad1);
+        this.drive.setControl(gamepad1, fieldCentric);
         this.claw.setControl(gamepad2);
         this.arm.setControl(gamepad2);
         /*this.launcher.setControl(gamepad2);

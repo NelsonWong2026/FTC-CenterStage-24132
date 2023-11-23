@@ -78,7 +78,7 @@ public class MecanumDrive {
     }
 
     //controller controls
-    public void setControl(Gamepad gamepad) {
+    public void setControl(Gamepad gamepad, boolean fieldCentric) {
 
         double y = -gamepad.left_stick_y;
         double x = gamepad.left_stick_x * 1.1;
@@ -97,20 +97,30 @@ public class MecanumDrive {
 
 
         double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
-        /*double frontLeftPower = (y + x + rx) / denominator;
-        double backLeftPower = (y - x + rx) / denominator;
-        double frontRightPower = (y - x -rx) / denominator;
-        double backRightPower = (y + x - rx) / denominator;*/
 
-        double frontLeftPower = (rotY + rotX + rx) / denominator;
-        double backLeftPower = (rotY - rotX + rx) / denominator;
-        double frontRightPower = (rotY - rotX -rx) / denominator;
-        double backRightPower = (rotY + rotX - rx) / denominator;
+        if (fieldCentric) {
+            double frontLeftPower = (rotY + rotX + rx) / denominator;
+            double backLeftPower = (rotY - rotX + rx) / denominator;
+            double frontRightPower = (rotY - rotX - rx) / denominator;
+            double backRightPower = (rotY + rotX - rx) / denominator;
 
-        leftFront.setPower(frontLeftPower);
-        leftBack.setPower(backLeftPower);
-        rightFront.setPower(frontRightPower);
-        rightBack.setPower(backRightPower);
+            leftFront.setPower(frontLeftPower);
+            leftBack.setPower(backLeftPower);
+            rightFront.setPower(frontRightPower);
+            rightBack.setPower(backRightPower);
+        }
+
+        else {
+            double frontLeftPower = (y + x + rx) / denominator;
+            double backLeftPower = (y - x + rx) / denominator;
+            double frontRightPower = (y - x -rx) / denominator;
+            double backRightPower = (y + x - rx) / denominator;
+
+            leftFront.setPower(frontLeftPower);
+            leftBack.setPower(backLeftPower);
+            rightFront.setPower(frontRightPower);
+            rightBack.setPower(backRightPower);
+        }
 
         /*double leftDrive = -gamepad.left_stick_y;
         double rightDrive = -gamepad.right_stick_y;
