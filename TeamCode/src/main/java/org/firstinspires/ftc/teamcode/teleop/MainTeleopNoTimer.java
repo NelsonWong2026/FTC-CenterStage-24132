@@ -16,8 +16,8 @@ public class MainTeleopNoTimer extends OpMode {
     private Claw claw = new Claw();
     private Arm arm = new Arm();
     private boolean fieldCentric = true;
-    /*private Launcher launcher = new Launcher();
-    private Lift lift = new Lift();
+    private Launcher launcher = new Launcher();
+    /*private Lift lift = new Lift();
     private PIDF_Arm pidf_arm = new PIDF_Arm();*/
 
     @Override
@@ -25,8 +25,8 @@ public class MainTeleopNoTimer extends OpMode {
         this.drive.init(hardwareMap);
         this.claw.init(hardwareMap);
         this.arm.init(hardwareMap);
-        /*this.launcher.init(hardwareMap);
-        this.lift.init(hardwareMap);
+        this.launcher.init(hardwareMap);
+        /*this.lift.init(hardwareMap);
         this.pidf_arm.init(hardwareMap);*/
         telemetry.addData("Status","Initialized");
         telemetry.update();
@@ -37,8 +37,8 @@ public class MainTeleopNoTimer extends OpMode {
         this.drive.setControl(gamepad1, fieldCentric);
         this.claw.setControl(gamepad2);
         this.arm.setControl(gamepad2);
-        /*this.launcher.setControl(gamepad2);
-        this.lift.setControl(gamepad1);
+        this.launcher.setControl(gamepad2);
+        /*this.lift.setControl(gamepad1);
         this.pidf_arm.setControl(gamepad2);*/
 
         telemetry.addData("Status","Enabled");
