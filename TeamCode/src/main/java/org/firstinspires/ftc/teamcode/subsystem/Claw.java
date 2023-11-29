@@ -25,10 +25,10 @@ public class Claw {
 
     /*public void setClawPos(double Position) {
         Claw.setPosition(Position);
-    }
-    public void setPivotPos(double Position) {
-        Pivot.setPower(1);
     }*/
+    public void setPivotPos(double Position) {
+        Pivot.setPosition(Position);
+    }
 
     public void setControl (Gamepad gamepad) {
         /*if (gamepad.a) {
