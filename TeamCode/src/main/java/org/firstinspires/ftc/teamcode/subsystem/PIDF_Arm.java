@@ -32,6 +32,10 @@ public class PIDF_Arm {
         this.arm_motor.setDirection(DcMotorSimple.Direction.FORWARD);
     }
 
+    public void setTarget(int target) {
+        this.target = target;
+    }
+
     public void setControl(Gamepad gamepad) {
         if (gamepad.dpad_up) {
             target = 0;
