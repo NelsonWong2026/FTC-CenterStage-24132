@@ -10,9 +10,12 @@ import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
+import org.checkerframework.checker.units.qual.C;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.RoadRunnerUtil.drive.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.subsystem.Claw;
+import org.firstinspires.ftc.teamcode.subsystem.PIDF_Arm;
 import org.firstinspires.ftc.teamcode.vision.ContourDetectionProcessor;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.opencv.core.Scalar;
@@ -24,6 +27,8 @@ public class RedAuto extends OpMode {
     private ContourDetectionProcessor contourDetectionProcessor;
     public static int lowerRedHue = 153, upperRedHue = 180;
     private SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
+    private PIDF_Arm arm = new PIDF_Arm();
+    private Claw claw = new Claw();
     @Override
     public void init() {
         Scalar lower = new Scalar(lowerRedHue, 100, 100);
@@ -45,6 +50,9 @@ public class RedAuto extends OpMode {
                 .build();
 
         FtcDashboard.getInstance().startCameraStream(contourDetectionProcessor, 30);
+
+        arm.init(hardwareMap);
+        claw.init(hardwareMap);
     }
 
     @Override
@@ -74,6 +82,9 @@ public class RedAuto extends OpMode {
 
         switch (recordedPropPosition) {
             case LEFT:
+                Trajectory leftTraj1 = drive.trajectoryBuilder(startPose)
+
+                        .build();
                 break;
             case UNFOUND:
             case MIDDLE:
@@ -82,19 +93,24 @@ public class RedAuto extends OpMode {
                         .build();
                 Trajectory traj2 = drive.trajectoryBuilder(traj1.end())
                         .lineToSplineHeading(new Pose2d(12, -48, Math.toRadians(90)))
-                        .splineToLinearHeading(new Pose2d(44, -47), Math.toRadians(0))
+                        .splineToLinearHeading(new Pose2d(44, -47, Math.toRadians(0)), Math.toRadians(0))
                         .build();
                 Trajectory traj3 = drive.trajectoryBuilder(traj2.end())
                         .lineToLinearHeading(new Pose2d(44, -35, Math.toRadians(0)))
                         .build();
                 Trajectory traj4 = drive.trajectoryBuilder(traj3.end())
-                        .lineToLinearHeading(new Pose2d(44, -12, Math.toRadians(90)))
+                        .splineToSplineHeading(new Pose2d(41, -12, Math.toRadians(90)), Math.toRadians(0))
+                        .splineToSplineHeading(new Pose2d(59, -12, Math.toRadians(90)), Math.toRadians(0))
                         .build();
-                Trajectory traj5 = drive.trajectoryBuilder(traj4.end())
-                        .lineTo(new Vector2d(59, -12))
-                        .build();
-                drive.followTrajectory(traj1);
 
+                drive.followTrajectory(traj1);
+                drive.followTrajectory(traj2);
+                drive.followTrajectory(traj3);
+                arm.setTarget(0);
+                claw.setPivotPos(0);
+                claw.setPivotPos(1);
+                arm.setTarget(0);
+                drive.followTrajectory(traj4);
                 break;
             case RIGHT:
 
