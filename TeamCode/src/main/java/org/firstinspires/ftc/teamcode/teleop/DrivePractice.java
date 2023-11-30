@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.teleop;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.subsystem.Claw;
 import org.firstinspires.ftc.teamcode.subsystem.Launcher;
 import org.firstinspires.ftc.teamcode.subsystem.Arm;
@@ -13,7 +14,6 @@ import org.firstinspires.ftc.teamcode.subsystem.PIDF_Arm;
 @TeleOp(name="DrivePractice", group="DrivePractice")
 public class DrivePractice extends OpMode {
     private MecanumDrive drive = new MecanumDrive();
-    private boolean fieldCentric = true;
 
     @Override
     public void init() {
@@ -24,7 +24,7 @@ public class DrivePractice extends OpMode {
 
     @Override
     public void loop() {
-        this.drive.setControl(gamepad1, fieldCentric);
+        this.drive.setControl(gamepad1, Constants.MecanumDrive.fieldCentric);
 
         telemetry.addData("Status","Enabled");
         telemetry.update();

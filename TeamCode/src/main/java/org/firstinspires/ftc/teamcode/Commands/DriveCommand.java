@@ -8,9 +8,10 @@ import java.util.function.DoubleSupplier;
 
 public class DriveCommand extends CommandBase {
     private DriveSubsystem driveSubsystem;
-    private DoubleSupplier strafe, forward, turn, gyro;
+    private DoubleSupplier strafe, forward, turn;
+    private double gyro;
 
-    public DriveCommand(DriveSubsystem driveSubsystem, DoubleSupplier strafe, DoubleSupplier forward, DoubleSupplier turn, DoubleSupplier gyro) {
+    public DriveCommand(DriveSubsystem driveSubsystem, DoubleSupplier strafe, DoubleSupplier forward, DoubleSupplier turn, double gyro) {
         this.driveSubsystem = driveSubsystem;
         this.strafe = strafe;
         this.forward = forward;
@@ -22,7 +23,7 @@ public class DriveCommand extends CommandBase {
 
     @Override
     public void execute() {
-        driveSubsystem.drive(strafe.getAsDouble(), forward.getAsDouble(), turn.getAsDouble(), gyro.getAsDouble());
+        driveSubsystem.drive(strafe.getAsDouble(), forward.getAsDouble(), turn.getAsDouble(), gyro);
 
     }
 }
