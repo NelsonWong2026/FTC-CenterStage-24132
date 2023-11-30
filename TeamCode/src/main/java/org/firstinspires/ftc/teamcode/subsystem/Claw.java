@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.subsystem;
 
+import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
@@ -8,26 +9,21 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Constants;
 
-public class Claw {
+public class Claw extends SubsystemBase {
     //private Servo Claw;
     //private Servo servoPivot;
-    private Servo Pivot;
+    private CRServo Pivot;
 
-    public Claw() {
-
+    public Claw(final HardwareMap hwMap) {
+        Pivot = hwMap.get(CRServo.class, Constants.Claw.Pivot);
     }
 
-    public void init(HardwareMap hwMap) {
-        //this.Claw = hwMap.get(Servo.class, Constants.Claw.Claw);
-        this.Pivot = hwMap.get(Servo.class, Constants.Claw.Pivot);
-        //this.servoPivot = hwMap.get(Servo.class, Constants.Claw.Pivot);
+    public void moveUp() {
+        Pivot.setPower(1);
     }
 
-    /*public void setClawPos(double Position) {
-        Claw.setPosition(Position);
-    }*/
-    public void setPivotPos(double Position) {
-        Pivot.setPosition(Position);
+    public void setPivotPos(double Power) {
+        Pivot.setPower(Power);
     }
 
     public void setControl (Gamepad gamepad) {
@@ -38,10 +34,10 @@ public class Claw {
             Claw.setPosition(0);
         }*/
         if (gamepad.x) {
-            Pivot.setPosition(1);
+            Pivot.setPower(1);
         }
         else if (gamepad.y) {
-            Pivot.setPosition(-1);
+            Pivot.setPower(-1);
         }
         /*else if (gamepad.left_bumper) {
             servoPivot.setPosition(0);

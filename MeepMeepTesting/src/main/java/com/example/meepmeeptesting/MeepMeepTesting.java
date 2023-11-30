@@ -23,14 +23,14 @@ public class MeepMeepTesting {
                 .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
                 .followTrajectorySequence(driveShim ->
                         driveShim.trajectorySequenceBuilder(startPose)
-                                /*
+
                                 .lineToLinearHeading(new Pose2d(12, -34, Math.toRadians(90)))
                                 .lineToSplineHeading(new Pose2d(12, -48, Math.toRadians(90)))
                                 .splineToLinearHeading(new Pose2d(44, -47, Math.toRadians(0)), Math.toRadians(0))
                                 .lineToSplineHeading(new Pose2d(44, -35, Math.toRadians(0)))
                                 .splineToSplineHeading(new Pose2d(41, -12, Math.toRadians(90)), Math.toRadians(0))
                                 .splineToSplineHeading(new Pose2d(59, -12, Math.toRadians(90)), Math.toRadians(0))
-                                 */
+
                                 /*.splineToLinearHeading(new Pose2d(10, -31, Math.toRadians(180)), Math.toRadians(230))
                                 .lineToSplineHeading(new Pose2d(15, -31, Math.toRadians(180)))
                                 .splineToSplineHeading(new Pose2d(44, -40, Math.toRadians(0)), Math.toRadians(0))
@@ -38,8 +38,8 @@ public class MeepMeepTesting {
                                 .splineToSplineHeading(new Pose2d(41, -12, Math.toRadians(90)), Math.toRadians(0))
                                 .splineToSplineHeading(new Pose2d(59, -12, Math.toRadians(90)), Math.toRadians(0))
                                */
-                                .splineToLinearHeading(new Pose2d(14, -31, Math.toRadians(0)), Math.toRadians(90))
-                                .build()
+                                /*.splineToLinearHeading(new Pose2d(14, -31, Math.toRadians(0)), Math.toRadians(90))
+                                */.build()
                 );
 
         mm.setBackground(MeepMeep.Background.FIELD_CENTERSTAGE_JUICE_DARK)
