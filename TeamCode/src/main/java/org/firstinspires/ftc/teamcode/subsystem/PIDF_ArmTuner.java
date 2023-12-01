@@ -12,7 +12,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import org.firstinspires.ftc.teamcode.Constants;
 
 @Config
-@Disabled
+//@Disabled
 @TeleOp(name = "PIDF_Arm", group = "OpMode")
 public class PIDF_ArmTuner extends OpMode {
     private PIDController controller;

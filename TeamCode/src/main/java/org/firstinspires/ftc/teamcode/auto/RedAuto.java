@@ -107,8 +107,8 @@ public class RedAuto extends OpMode {
                 drive.followTrajectory(traj2);
                 drive.followTrajectory(traj3);
                 arm.setTarget(0);
-                claw.setPivotPos(0);
-                claw.setPivotPos(1);
+                claw.setPivotPower(0);
+                claw.setPivotPower(1);
                 arm.setTarget(0);
                 drive.followTrajectory(traj4);
                 break;
