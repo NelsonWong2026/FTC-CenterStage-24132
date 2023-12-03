@@ -28,7 +28,7 @@ import org.opencv.core.Scalar;
 public class RedAuto extends OpMode {
     private VisionPortal visionPortal;
     private ContourDetectionProcessor contourDetectionProcessor;
-    public static int lowerRedHue = 153, upperRedHue = 180;
+    public static int lowerRedHue = 153, upperRedHue = 180, lowerBlueHue = 100, upperBlueHue = 140;;
     private SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
     private PIDF_Arm arm = new PIDF_Arm();
     private Claw claw = new Claw();
@@ -66,7 +66,9 @@ public class RedAuto extends OpMode {
     @Override
     public void init_loop() {
         configStartingPos.startConfiguration(gamepad1, setAllianceColor, setAlliancePos);
+        if (setAllianceColor == StartingConfiguration.AllianceColor.BLUE_ALLIANCE) {
 
+        }
         telemetry.addData("Currently Recorded Position", contourDetectionProcessor.getRecordedPropPosition());
         telemetry.addData("Camera State", visionPortal.getCameraState());
         telemetry.addData("Currently Detected Mass Center", "x: " + contourDetectionProcessor.getLargestContourX() + ", y: " + contourDetectionProcessor.getLargestContourY());
@@ -88,28 +90,11 @@ public class RedAuto extends OpMode {
             recordedPropPosition = ContourDetectionProcessor.PropPositions.MIDDLE;
         }
 
-        Pose2d startPose = new Pose2d();
-
-        drive.setPoseEstimate(startPose);
-
-        Trajectory middleRedTraj1 = drive.trajectoryBuilder(startPose)
-                .lineToLinearHeading(new Pose2d(12, -34, Math.toRadians(90)))
-                .build();
-        Trajectory middleRedTraj2 = drive.trajectoryBuilder(middleRedTraj1.end())
-                .lineToSplineHeading(new Pose2d(12, -48, Math.toRadians(90)))
-                .splineToLinearHeading(new Pose2d(44, -47, Math.toRadians(0)), Math.toRadians(0))
-                .build();
-        Trajectory middleRedTraj3 = drive.trajectoryBuilder(middleRedTraj2.end())
-                .lineToLinearHeading(new Pose2d(44, -35, Math.toRadians(0)))
-                .build();
-        Trajectory middleRedTraj4 = drive.trajectoryBuilder(middleRedTraj3.end())
-                .splineToSplineHeading(new Pose2d(41, -12, Math.toRadians(90)), Math.toRadians(0))
-                .splineToSplineHeading(new Pose2d(59, -12, Math.toRadians(90)), Math.toRadians(0))
-                .build();
-
-
         switch (setAllianceColor) {
             case RED_ALLIANCE:
+                Pose2d startPose = new Pose2d(12, -60, Math.toRadians(90));
+
+                drive.setPoseEstimate(startPose);
                 switch (recordedPropPosition) {
                     case LEFT:
                         Trajectory leftTraj1 = drive.trajectoryBuilder(startPose)
@@ -117,6 +102,21 @@ public class RedAuto extends OpMode {
                                 .build();
                         break;
                     case MIDDLE:
+                        Trajectory middleRedTraj1 = drive.trajectoryBuilder(startPose)
+                                .lineToLinearHeading(new Pose2d(12, -34, Math.toRadians(90)))
+                                .build();
+                        Trajectory middleRedTraj2 = drive.trajectoryBuilder(middleRedTraj1.end())
+                                .lineToSplineHeading(new Pose2d(12, -48, Math.toRadians(90)))
+                                .splineToLinearHeading(new Pose2d(44, -47, Math.toRadians(0)), Math.toRadians(0))
+                                .build();
+                        Trajectory middleRedTraj3 = drive.trajectoryBuilder(middleRedTraj2.end())
+                                .lineToLinearHeading(new Pose2d(44, -35, Math.toRadians(0)))
+                                .build();
+                        Trajectory middleRedTraj4 = drive.trajectoryBuilder(middleRedTraj3.end())
+                                .splineToSplineHeading(new Pose2d(41, -12, Math.toRadians(90)), Math.toRadians(0))
+                                .splineToSplineHeading(new Pose2d(59, -12, Math.toRadians(90)), Math.toRadians(0))
+                                .build();
+
                         drive.followTrajectory(middleRedTraj1);
                         drive.followTrajectory(middleRedTraj2);
                         drive.followTrajectory(middleRedTraj3);
