@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.subsystem;
 
+import com.qualcomm.hardware.rev.RevTouchSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
@@ -8,27 +9,30 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.teamcode.Constants;
 
 public class Arm {
-    private DcMotor Arm;
+    private DcMotor arm;
+    private RevTouchSensor touchSensor;
 
     public Arm() {
 
     }
 
     public void init(HardwareMap hwMap) {
-        this.Arm = hwMap.get(DcMotor.class, Constants.Arm.Arm);
-        this.Arm.setDirection(DcMotor.Direction.FORWARD);
-        this.Arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        this.arm = hwMap.get(DcMotor.class, Constants.Arm.Arm);
+        this.arm.setDirection(DcMotor.Direction.FORWARD);
+        this.arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        this.arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+
+    public void zeroCalibrate() {
+
     }
 
     public void setControl(Gamepad gamepad) {
         if (gamepad.dpad_up) {
-            Arm.setPower(1);
+            arm.setTargetPosition();
         }
         else if (gamepad.dpad_down) {
-            Arm.setPower(-1);
-        }
-        else {
-            Arm.setPower(0);
+            arm.setTargetPosition();
         }
     }
 }

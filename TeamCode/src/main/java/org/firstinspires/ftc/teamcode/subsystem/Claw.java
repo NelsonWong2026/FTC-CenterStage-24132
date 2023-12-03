@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.Constants;
 public class Claw {
     //private Servo Claw;
     //private Servo servoPivot;
-    private CRServo Pivot;
+    private CRServo pivot;
 
     public Claw() {
 
@@ -19,7 +19,7 @@ public class Claw {
 
     public void init(HardwareMap hwMap) {
         //this.Claw = hwMap.get(Servo.class, Constants.Claw.Claw);
-        this.Pivot = hwMap.get(CRServo.class, Constants.Claw.Pivot);
+        this.pivot = hwMap.get(CRServo.class, Constants.Claw.Pivot);
         //this.servoPivot = hwMap.get(Servo.class, Constants.Claw.Pivot);
     }
 
@@ -27,7 +27,7 @@ public class Claw {
         Claw.setPosition(Position);
     }*/
     public void setPivotPower(double Power) {
-        Pivot.setPower(Power);
+        pivot.setPower(Power);
     }
 
     public void setControl (Gamepad gamepad) {
@@ -38,10 +38,10 @@ public class Claw {
             Claw.setPosition(0);
         }*/
         if (gamepad.x) {
-            Pivot.setPower(1);
+            pivot.setPower(1);
         }
         else if (gamepad.y) {
-            Pivot.setPower(-1);
+            pivot.setPower(-1);
         }
         /*else if (gamepad.left_bumper) {
             servoPivot.setPosition(0);
@@ -50,7 +50,7 @@ public class Claw {
             servoPivot.setPosition(1);
         }*/
         else {
-            Pivot.setPower(0);
+            pivot.setPower(0);
 
         }
     }

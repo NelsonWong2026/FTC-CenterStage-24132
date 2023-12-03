@@ -7,22 +7,22 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.Constants;
 
 public class Launcher {
-    private Servo Launcher;
+    private Servo launcher;
 
     public Launcher() {
 
     }
 
     public void init(HardwareMap hwMap) {
-        this.Launcher = hwMap.get(Servo.class, Constants.Launcher.Launcher);
+        this.launcher = hwMap.get(Servo.class, Constants.Launcher.Launcher);
     }
 
     public void setControl(Gamepad gamepad) {
         if (gamepad.right_bumper) {
-            Launcher.setPosition(0.8);
+            launcher.setPosition(0.8);
         }
         else if (gamepad.left_bumper) {
-            Launcher.setPosition(0);
+            launcher.setPosition(0);
         }
     }
 }
