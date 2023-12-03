@@ -26,6 +26,8 @@ public class Constants {
 
     public static final class Arm {
         public static final String Arm = "arm";
+        public static final String touchSensor = "touchsensor";
+        public static final double CalibratePower = -0.3;
     }
 
     public static final class Lift {

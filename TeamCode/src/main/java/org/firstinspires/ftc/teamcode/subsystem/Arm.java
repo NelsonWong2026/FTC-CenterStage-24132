@@ -21,10 +21,16 @@ public class Arm {
         this.arm.setDirection(DcMotor.Direction.FORWARD);
         this.arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         this.arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        this.touchSensor = hwMap.get(RevTouchSensor.class, Constants.Arm.)
     }
 
     public void zeroCalibrate() {
-
+        while (!touchSensor.isPressed()) {
+            arm.setPower(-0.3);
+        }
+        arm.setPower(0);
+        arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
     public void setControl(Gamepad gamepad) {
