@@ -24,7 +24,7 @@ public class Arm {
         this.arm.setDirection(DcMotor.Direction.FORWARD);
         this.arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         this.arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        this.touchSensor = hwMap.get(RevTouchSensor.class, Constants.Arm.);
+        this.touchSensor = hwMap.get(RevTouchSensor.class, Constants.Arm.touchSensor);
     }
 
     public void zeroCalibrate() {
@@ -36,15 +36,30 @@ public class Arm {
         arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
+    public void setArmPos(int Position) {
+        arm.setTargetPosition(Position);
+        arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        arm.setPower(Constants.Arm.AutoMovePower);
+    }
+
     public void setControl(Gamepad gamepad) {
+        Integer armTarget;
         if (gamepad.dpad_up) {
-            arm.setTargetPosition();
+            armTarget = ;
         }
         else if (gamepad.dpad_down) {
-            arm.setTargetPosition();
+            armTarget = ;
         }
         else if (gamepad.dpad_right) {
-            arm.setTargetPosition();
+            armTarget = ;
+        }
+        else {
+            armTarget = null;
+        }
+        if (armTarget != null) {
+            arm.setTargetPosition(armTarget);
+            arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            arm.setPower(Constants.Arm.MovePower);
         }
     }
 }

@@ -24,21 +24,34 @@ public class MeepMeepTesting {
                 .followTrajectorySequence(driveShim ->
                         driveShim.trajectorySequenceBuilder(startPose)
 
-                                .lineToLinearHeading(new Pose2d(12, -34, Math.toRadians(90)))
-                                .lineToSplineHeading(new Pose2d(12, -48, Math.toRadians(90)))
-                                .splineToLinearHeading(new Pose2d(44, -47, Math.toRadians(0)), Math.toRadians(0))
-                                .lineToSplineHeading(new Pose2d(44, -35, Math.toRadians(0)))
-                                .splineToSplineHeading(new Pose2d(41, -12, Math.toRadians(90)), Math.toRadians(0))
-                                .splineToSplineHeading(new Pose2d(59, -12, Math.toRadians(90)), Math.toRadians(0))
+                                /*.splineTo(new Vector2d(12, -34), Math.toRadians(90))
+                                .setReversed(true)
+                                .splineToSplineHeading(new Pose2d(44, -36, Math.toRadians(0)), Math.toRadians(0))
+                                .addDisplacementMarker(() -> {
 
-                                /*.splineToLinearHeading(new Pose2d(10, -31, Math.toRadians(180)), Math.toRadians(230))
-                                .lineToSplineHeading(new Pose2d(15, -31, Math.toRadians(180)))
-                                .splineToSplineHeading(new Pose2d(44, -40, Math.toRadians(0)), Math.toRadians(0))
-                                .lineToSplineHeading(new Pose2d(44, -35, Math.toRadians(0)))
-                                .splineToSplineHeading(new Pose2d(41, -12, Math.toRadians(90)), Math.toRadians(0))
-                                .splineToSplineHeading(new Pose2d(59, -12, Math.toRadians(90)), Math.toRadians(0))
-                               */
-                                /*.splineToLinearHeading(new Pose2d(14, -31, Math.toRadians(0)), Math.toRadians(90))*/
+                                })
+                                .splineToLinearHeading(new Pose2d(41, -60, Math.toRadians(0)), Math.toRadians(0))
+                                .splineToLinearHeading(new Pose2d(59, -60, Math.toRadians(0)), Math.toRadians(0))*/
+
+                                /*.splineToSplineHeading(new Pose2d(10, -31, Math.toRadians(180)), Math.toRadians(180))
+                                .setReversed(true)
+                                .splineToSplineHeading(new Pose2d(44, -35, Math.toRadians(0)), Math.toRadians(0))
+                                .addDisplacementMarker(() -> {
+
+                                })
+                                .splineToLinearHeading(new Pose2d(41, -60, Math.toRadians(0)), Math.toRadians(0))
+                                .splineToLinearHeading(new Pose2d(59, -60, Math.toRadians(0)), Math.toRadians(0))*/
+
+                                /*.lineToConstantHeading(new Vector2d(22, -39))
+                                .setReversed(true)
+                                .splineToConstantHeading(new Vector2d(33, -55), Math.toRadians(45))
+                                .splineToSplineHeading(new Pose2d(44, -35, Math.toRadians(0)), Math.toRadians(0))
+                                .addDisplacementMarker(() -> {
+
+                                })
+                                .splineToLinearHeading(new Pose2d(41, -60, Math.toRadians(0)), Math.toRadians(0))
+                                .splineToLinearHeading(new Pose2d(59, -60, Math.toRadians(0)), Math.toRadians(0))*/
+
                                 .build()
                 );
 
