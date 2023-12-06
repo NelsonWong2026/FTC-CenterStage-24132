@@ -45,13 +45,13 @@ public class Arm {
     public void setControl(Gamepad gamepad) {
         Integer armTarget;
         if (gamepad.dpad_up) {
-            armTarget = ;
+            armTarget = 4600;
         }
         else if (gamepad.dpad_down) {
-            armTarget = ;
+            armTarget = 1;
         }
         else if (gamepad.dpad_right) {
-            armTarget = ;
+            armTarget = 2500;
         }
         else {
             armTarget = null;

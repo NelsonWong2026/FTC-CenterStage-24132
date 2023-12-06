@@ -14,19 +14,15 @@ public class CalibrateArm extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         arm = hardwareMap.get(DcMotor.class, Constants.Arm.Arm);
-        touchSensor = hardwareMap.get(RevTouchSensor.class, Constants.Arm.touchSensor);
 
         waitForStart();
 
-        arm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        arm.setPower(Constants.Arm.CalibratePower);
         while (opModeIsActive()) {
-            if (touchSensor.isPressed()) {
+            arm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            if (gamepad1.a) {
                 arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                break;
             }
+            telemetry.addData("Arm Position: ", arm.getCurrentPosition());
         }
-        arm.setPower(0);
-        telemetry.addData("Arm Position: ", arm.getCurrentPosition());
     }
 }
