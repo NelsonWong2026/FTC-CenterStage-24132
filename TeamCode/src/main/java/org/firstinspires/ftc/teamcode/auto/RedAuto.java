@@ -18,6 +18,7 @@ import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.RoadRunnerUtil.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.RoadRunnerUtil.trajectorysequence.TrajectorySequence;
 import org.firstinspires.ftc.teamcode.StartingConfiguration;
+import org.firstinspires.ftc.teamcode.subsystem.Arm;
 import org.firstinspires.ftc.teamcode.subsystem.Claw;
 import org.firstinspires.ftc.teamcode.subsystem.PIDF_Arm;
 import org.firstinspires.ftc.teamcode.vision.ContourDetectionProcessor;
@@ -30,8 +31,8 @@ public class RedAuto extends OpMode {
     private VisionPortal visionPortal;
     private ContourDetectionProcessor contourDetectionProcessor;
     public static int lowerRedHue = 153, upperRedHue = 180, lowerBlueHue = 100, upperBlueHue = 140;;
-    private SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-    private PIDF_Arm arm = new PIDF_Arm();
+    private SampleMecanumDrive drive;
+    private Arm arm = new Arm();
     private Claw claw = new Claw();
     private StartingConfiguration.AlliancePosition setAlliancePos;
     private StartingConfiguration configStartingPos = new StartingConfiguration();
@@ -60,6 +61,7 @@ public class RedAuto extends OpMode {
 
         arm.init(hardwareMap);
         claw.init(hardwareMap);
+        drive = new SampleMecanumDrive(hardwareMap);
     }
 
     @Override

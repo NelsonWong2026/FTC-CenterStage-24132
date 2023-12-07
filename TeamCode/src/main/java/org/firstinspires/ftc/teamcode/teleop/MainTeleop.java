@@ -18,7 +18,7 @@ public class MainTeleop extends OpMode {
     private MecanumDrive drive = new MecanumDrive();
     private Claw claw = new Claw();
     private Arm arm = new Arm();
-    private boolean fieldCentric = true;
+    private boolean fieldCentric = false;
     private Launcher launcher = new Launcher();
     /*private Lift lift = new Lift();
     private PIDF_Arm pidf_arm = new PIDF_Arm();*/

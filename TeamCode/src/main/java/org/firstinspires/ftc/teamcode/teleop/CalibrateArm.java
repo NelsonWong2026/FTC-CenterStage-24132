@@ -21,6 +21,7 @@ public class CalibrateArm extends LinearOpMode {
             arm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             if (gamepad1.a) {
                 arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                break;
             }
             telemetry.addData("Arm Position: ", arm.getCurrentPosition());
         }

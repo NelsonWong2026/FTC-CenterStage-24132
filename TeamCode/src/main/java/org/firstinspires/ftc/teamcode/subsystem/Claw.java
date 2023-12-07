@@ -31,11 +31,8 @@ public class Claw {
     }
 
     public void setControl (Gamepad gamepad) {
-        /*if (gamepad.a) {
-            Claw.setPosition(0.5);
-        }
-        else if (gamepad.b) {
-            Claw.setPosition(0);
+        /*if (gamepad.dpad_up) {
+            pivot.setPosition(1);
         }*/
         if (gamepad.x) {
             pivot.setPower(1);
@@ -43,15 +40,8 @@ public class Claw {
         else if (gamepad.y) {
             pivot.setPower(-1);
         }
-        /*else if (gamepad.left_bumper) {
-            servoPivot.setPosition(0);
-        }
-        else if (gamepad.right_bumper) {
-            servoPivot.setPosition(1);
-        }*/
         else {
             pivot.setPower(0);
-
         }
     }
 }
