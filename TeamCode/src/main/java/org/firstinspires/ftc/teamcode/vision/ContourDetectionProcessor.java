@@ -117,21 +117,21 @@ public class ContourDetectionProcessor implements VisionProcessor, CameraStreamS
             largestContourY = (moment.m01 / moment.m00);
         }
 
-        PropPositions propPosition;
+        PropPositions propPosition = PropPositions.UNFOUND;
         if (largestContour == null) {
             propPosition = PropPositions.UNFOUND;
         }
         else if (largestContourX < left.getAsDouble()) {
-            propPosition = PropPositions.LEFT;
+            propPosition = PropPositions.MIDDLE;
         }
         else if (largestContourX > right.getAsDouble()) {
             propPosition = PropPositions.RIGHT;
         }
         else {
-            propPosition = PropPositions.MIDDLE;
+            propPosition = PropPositions.LEFT;
         }
 
-        if (propPosition != previousPropPosition && propPosition != PropPositions.UNFOUND) {
+        if (propPosition != previousPropPosition) {     // && propPosition != PropPositions.UNFOUND) {
             recordedPropPosition = propPosition;
         }
 

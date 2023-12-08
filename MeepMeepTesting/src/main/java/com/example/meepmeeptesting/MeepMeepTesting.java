@@ -20,7 +20,7 @@ public class MeepMeepTesting {
 
 
         RoadRunnerBotEntity myBot = new DefaultBotBuilder(mm)
-                .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
+                .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 13.93)
                 .followTrajectorySequence(driveShim ->
                         driveShim.trajectorySequenceBuilder(startPose)
 
@@ -33,7 +33,7 @@ public class MeepMeepTesting {
                                 .splineToLinearHeading(new Pose2d(41, -60, Math.toRadians(0)), Math.toRadians(0))
                                 .splineToLinearHeading(new Pose2d(59, -60, Math.toRadians(0)), Math.toRadians(0))*/
 
-                                /*.splineToSplineHeading(new Pose2d(10, -31, Math.toRadians(180)), Math.toRadians(180))
+                               /* .splineToSplineHeading(new Pose2d(10, -31, Math.toRadians(180)), Math.toRadians(180))
                                 .setReversed(true)
                                 .splineToSplineHeading(new Pose2d(44, -35, Math.toRadians(0)), Math.toRadians(0))
                                 .addDisplacementMarker(() -> {
@@ -42,16 +42,20 @@ public class MeepMeepTesting {
                                 .splineToLinearHeading(new Pose2d(41, -60, Math.toRadians(0)), Math.toRadians(0))
                                 .splineToLinearHeading(new Pose2d(59, -60, Math.toRadians(0)), Math.toRadians(0))*/
 
-                                /*.lineToConstantHeading(new Vector2d(22, -39))
+                                .splineTo(new Vector2d(12, -34.5), Math.toRadians(90))
                                 .setReversed(true)
-                                .splineToConstantHeading(new Vector2d(33, -55), Math.toRadians(45))
-                                .splineToSplineHeading(new Pose2d(44, -35, Math.toRadians(0)), Math.toRadians(0))
-                                .addDisplacementMarker(() -> {
-
+                                .splineToLinearHeading(new Pose2d(44, -35, Math.toRadians(0)), Math.toRadians(0))
+                                .UNSTABLE_addTemporalMarkerOffset(0, () -> {
+                                   // arm.setArmPos(2500);
+                                    //claw.setPivotPower(1);
                                 })
+                                .UNSTABLE_addTemporalMarkerOffset(4, () -> {
+                                   // claw.setPivotPower(0);
+                                    //arm.setArmPos(-2000);
+                                })
+                                .waitSeconds(6)
                                 .splineToLinearHeading(new Pose2d(41, -60, Math.toRadians(0)), Math.toRadians(0))
-                                .splineToLinearHeading(new Pose2d(59, -60, Math.toRadians(0)), Math.toRadians(0))*/
-
+                                .splineToLinearHeading(new Pose2d(59, -60, Math.toRadians(0)), Math.toRadians(0))
                                 .build()
                 );
 

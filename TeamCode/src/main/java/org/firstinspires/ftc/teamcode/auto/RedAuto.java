@@ -7,6 +7,8 @@ import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
+import com.acmerobotics.roadrunner.trajectory.constraints.TrajectoryAccelerationConstraint;
+import com.acmerobotics.roadrunner.trajectory.constraints.TrajectoryVelocityConstraint;
 import com.qualcomm.hardware.rev.RevTouchSensor;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -26,28 +28,33 @@ import org.firstinspires.ftc.vision.VisionPortal;
 import org.opencv.core.Scalar;
 
 @Config
-@Autonomous(name = "Red Left Main Auto", group = "auto")
+@Autonomous(name = "Red Main Auto", group = "auto")
 public class RedAuto extends OpMode {
     private VisionPortal visionPortal;
     private ContourDetectionProcessor contourDetectionProcessor;
-    public static int lowerRedHue = 153, upperRedHue = 180, lowerBlueHue = 100, upperBlueHue = 140;;
+    public static int lowerRedHue = 153, upperRedHue = 180, lowerRedV = 65, upperRedV = 255;
     private SampleMecanumDrive drive;
     private Arm arm = new Arm();
     private Claw claw = new Claw();
     private StartingConfiguration.AlliancePosition setAlliancePos;
     private StartingConfiguration configStartingPos = new StartingConfiguration();
+    private TrajectoryVelocityConstraint velConstraint;
+    private TrajectoryAccelerationConstraint accelConstraint;
+
+    public RedAuto() {
+    }
 
     @Override
     public void init() {
-        Scalar lower = new Scalar(lowerRedHue, 100, 100);
-        Scalar upper = new Scalar(upperRedHue, 255, 255);
-        double minArea = 100;
+        Scalar lower = new Scalar(lowerRedHue, 100, lowerRedV);
+        Scalar upper = new Scalar(upperRedHue, 255, upperRedV);
+        double minArea = 5000;
         contourDetectionProcessor = new ContourDetectionProcessor(
                 lower,
                 upper,
                 () -> minArea,
-                () -> 213,
-                () -> 426
+                () -> 410,
+                () -> 410
         );
 
         visionPortal = new VisionPortal.Builder()
@@ -62,11 +69,12 @@ public class RedAuto extends OpMode {
         arm.init(hardwareMap);
         claw.init(hardwareMap);
         drive = new SampleMecanumDrive(hardwareMap);
+        arm.zeroCalibrate();
     }
 
     @Override
     public void init_loop() {
-        configStartingPos.startConfiguration(gamepad1, setAlliancePos);
+        setAlliancePos = configStartingPos.startConfiguration(gamepad1);
 
         telemetry.addData("Currently Recorded Position", contourDetectionProcessor.getRecordedPropPosition());
         telemetry.addData("Camera State", visionPortal.getCameraState());
@@ -85,68 +93,106 @@ public class RedAuto extends OpMode {
         ContourDetectionProcessor.PropPositions recordedPropPosition = contourDetectionProcessor.getRecordedPropPosition();
 
         if (recordedPropPosition == ContourDetectionProcessor.PropPositions.UNFOUND) {
-            recordedPropPosition = ContourDetectionProcessor.PropPositions.MIDDLE;
+            recordedPropPosition = ContourDetectionProcessor.PropPositions.LEFT;
         }
 
         switch (setAlliancePos) {
             case RIGHT:
-                Pose2d startPose = new Pose2d(12, 60, Math.toRadians(-90));
+                Pose2d rightStartPose = new Pose2d(12, -60, Math.toRadians(90));
 
-                drive.setPoseEstimate(startPose);
+                drive.setPoseEstimate(rightStartPose);
                 switch (recordedPropPosition) {
                     case LEFT:
-                        TrajectorySequence rightLeftTrajSeq = drive.trajectorySequenceBuilder(startPose)
-                                .splineToSplineHeading(new Pose2d(10, 31, Math.toRadians(180)), Math.toRadians(180))
+                        TrajectorySequence rightLeftTrajSeq = drive.trajectorySequenceBuilder(rightStartPose)
+                                .splineToLinearHeading(new Pose2d(10, -31, Math.toRadians(180)), Math.toRadians(180))
                                 .setReversed(true)
-                                .splineToSplineHeading(new Pose2d(44, 35, Math.toRadians(0)), Math.toRadians(0))
-                                .addDisplacementMarker(() -> {
-
+                                .splineToLinearHeading(new Pose2d(44, -30, Math.toRadians(0)), Math.toRadians(0))
+                                .UNSTABLE_addTemporalMarkerOffset(0, () -> {
+                                    arm.setArmPos(2500);
+                                    claw.setPivotPower(1);
                                 })
-                                .splineToLinearHeading(new Pose2d(41, 60, Math.toRadians(0)), Math.toRadians(0))
-                                .splineToLinearHeading(new Pose2d(59, 60, Math.toRadians(0)), Math.toRadians(0))
+                                .UNSTABLE_addTemporalMarkerOffset(4, () -> {
+                                    claw.setPivotPower(0);
+                                    arm.setArmPos(-2000);
+                                })
+                                .waitSeconds(6)
+                                .splineToLinearHeading(new Pose2d(41, -60, Math.toRadians(0)), Math.toRadians(0))
+                                .splineToLinearHeading(new Pose2d(59, -60, Math.toRadians(0)), Math.toRadians(0))
                                 .build();
                         drive.followTrajectorySequence(rightLeftTrajSeq);
                         break;
                     case MIDDLE:
-                        TrajectorySequence rightMiddleTrajSeq = drive.trajectorySequenceBuilder(startPose)
-                                .splineTo(new Vector2d(12, 34), Math.toRadians(90))
+                        TrajectorySequence rightMiddleTrajSeq = drive.trajectorySequenceBuilder(rightStartPose)
+                                .splineTo(new Vector2d(12, -34.5), Math.toRadians(90))
                                 .setReversed(true)
-                                .splineToSplineHeading(new Pose2d(44, 36, Math.toRadians(0)), Math.toRadians(0))
-                                .addDisplacementMarker(() -> {
-
+                                .splineToLinearHeading(new Pose2d(44, -35, Math.toRadians(0)), Math.toRadians(0))
+                                .UNSTABLE_addTemporalMarkerOffset(0, () -> {
+                                    arm.setArmPos(2500);
+                                    claw.setPivotPower(1);
                                 })
-                                .splineToLinearHeading(new Pose2d(41, 60, Math.toRadians(0)), Math.toRadians(0))
-                                .splineToLinearHeading(new Pose2d(59, 60, Math.toRadians(0)), Math.toRadians(0))
+                                .UNSTABLE_addTemporalMarkerOffset(4, () -> {
+                                    claw.setPivotPower(0);
+                                    arm.setArmPos(-2000);
+                                })
+                                .waitSeconds(6)
+                                .splineToLinearHeading(new Pose2d(41, -60, Math.toRadians(0)), Math.toRadians(0))
+                                .splineToLinearHeading(new Pose2d(59, -60, Math.toRadians(0)), Math.toRadians(0))
                                 .build();
 
                         drive.followTrajectorySequence(rightMiddleTrajSeq);
 
                         break;
                     case RIGHT:
-                        TrajectorySequence rightRightTrajSeq = drive.trajectorySequenceBuilder(startPose)
-                        .lineToConstantHeading(new Vector2d(22, 39))
-                            .setReversed(true)
-                            .splineToConstantHeading(new Vector2d(33, 55), Math.toRadians(45))
-                            .splineToSplineHeading(new Pose2d(44, 35, Math.toRadians(0)), Math.toRadians(0))
-                            .addDisplacementMarker(() -> {
-
-                            })
-                            .splineToLinearHeading(new Pose2d(41, 60, Math.toRadians(0)), Math.toRadians(0))
-                            .splineToLinearHeading(new Pose2d(59, 60, Math.toRadians(0)), Math.toRadians(0))
-                            .build();
+                        TrajectorySequence rightRightTrajSeq = drive.trajectorySequenceBuilder(rightStartPose)
+                                .turn(Math.toRadians(-35))
+                                .lineToLinearHeading(new Pose2d(13.5, -30, Math.toRadians(0)))
+                                .setReversed(true)
+                                .splineToConstantHeading(new Vector2d(33, -55), Math.toRadians(45))
+                                .splineToSplineHeading(new Pose2d(44, -39, Math.toRadians(0)), Math.toRadians(0))
+                                .UNSTABLE_addTemporalMarkerOffset(0, () -> {
+                                    arm.setArmPos(2500);
+                                    claw.setPivotPower(1);
+                                })
+                                .UNSTABLE_addTemporalMarkerOffset(4, () -> {
+                                    claw.setPivotPower(0);
+                                    arm.setArmPos(-2000);
+                                })
+                                .waitSeconds(6)
+                                .splineToLinearHeading(new Pose2d(41, -60, Math.toRadians(0)), Math.toRadians(0))
+                                .splineToLinearHeading(new Pose2d(59, -60, Math.toRadians(0)), Math.toRadians(0))
+                                .build();
 
                         drive.followTrajectorySequence(rightRightTrajSeq);
                         break;
                 }
             case LEFT:
+                Pose2d leftStartPose = new Pose2d(-36, -60, Math.toRadians(90));
+
+                drive.setPoseEstimate(leftStartPose);
                 switch (recordedPropPosition) {
                     case LEFT:
+                        TrajectorySequence leftLeftTrajSeq = drive.trajectorySequenceBuilder(leftStartPose)
+                                .splineToLinearHeading(new Pose2d(-37.5, -31, Math.toRadians(180)), Math.toRadians(180))
+                                .back(5)
+                                .build();
+                        drive.followTrajectorySequence(leftLeftTrajSeq);
                         break;
 
                     case MIDDLE:
+                        TrajectorySequence leftMiddleTrajSeq = drive.trajectorySequenceBuilder(leftStartPose)
+                                .splineTo(new Vector2d(-36, -34.5), Math.toRadians(90))
+                                .back(5)
+                                .build();
+                        drive.followTrajectorySequence(leftMiddleTrajSeq);
                         break;
 
                     case RIGHT:
+                        TrajectorySequence leftRightTrajSeq = drive.trajectorySequenceBuilder(leftStartPose)
+                                .turn(Math.toRadians(-35))
+                                .lineToLinearHeading(new Pose2d(-34.5, -30, Math.toRadians(0)))
+                                .back(5)
+                                .build();
+                        drive.followTrajectorySequence(leftRightTrajSeq);
                         break;
 
                 }

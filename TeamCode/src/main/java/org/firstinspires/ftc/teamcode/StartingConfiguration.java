@@ -3,9 +3,11 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 public class StartingConfiguration {
+    private AlliancePosition position;
     public enum AlliancePosition {
         LEFT,
-        RIGHT;
+        RIGHT,
+        PRESSTHEBUTTON;
 
     }
 
@@ -13,15 +15,14 @@ public class StartingConfiguration {
 
     }
 
-    public void startConfiguration(Gamepad gamepad, AlliancePosition setAlliancePos) {
+    public AlliancePosition startConfiguration(Gamepad gamepad) {
         if (gamepad.dpad_left) {
-            setAlliancePos = AlliancePosition.LEFT;
+            position = AlliancePosition.LEFT;
         }
         else if (gamepad.dpad_right) {
-            setAlliancePos = AlliancePosition.RIGHT;
+            position = AlliancePosition.RIGHT;
         }
-        else {
-            setAlliancePos = AlliancePosition.LEFT;
-        }
+
+        return position;
     }
 }

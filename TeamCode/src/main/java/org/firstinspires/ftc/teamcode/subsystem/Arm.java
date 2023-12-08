@@ -28,14 +28,10 @@ public class Arm {
        // this.touchSensor = hwMap.get(RevTouchSensor.class, Constants.Arm.touchSensor);
     }
 
-   /* public void zeroCalibrate() {
-        while (!touchSensor.isPressed()) {
-            arm.setPower(-0.3);
-        }
-        arm.setPower(0);
+   public void zeroCalibrate() {
         arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-    }*/
+    }
 
     public void setArmPos(int Position) {
         arm.setTargetPosition(Position);
