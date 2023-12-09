@@ -64,7 +64,7 @@ public class BlueAuto extends OpMode {
 
     @Override
     public void init_loop() {
-        setAlliancePos = configStartingPos.startConfiguration(gamepad1);
+        setAlliancePos = configStartingPos.startConfiguration(gamepad1, gamepad2);
 
         telemetry.addData("Currently Recorded Position", contourDetectionProcessor.getRecordedPropPosition());
         telemetry.addData("Camera State", visionPortal.getCameraState());
@@ -98,20 +98,23 @@ public class BlueAuto extends OpMode {
                                 .lineToLinearHeading(new Pose2d(14, 26, Math.toRadians(0)))
                                 .setReversed(true)
                                 .splineToConstantHeading(new Vector2d(33, 55), Math.toRadians(-45))
-                                .splineToSplineHeading(new Pose2d(48, 39, Math.toRadians(0)), Math.toRadians(0))
+                                .splineToSplineHeading(new Pose2d(48.5, 39, Math.toRadians(0)), Math.toRadians(0))
                                 .UNSTABLE_addTemporalMarkerOffset(0, () -> {
                                     arm.setArmPos(2500);
+                                })
+                                .UNSTABLE_addTemporalMarkerOffset(1, () -> {
+                                    claw.setPivotPower(0);
                                 })
                                 .UNSTABLE_addTemporalMarkerOffset(2, () -> {
                                     claw.setPivotPower(1);
                                 })
-                                .UNSTABLE_addTemporalMarkerOffset(4, () -> {
+                                .UNSTABLE_addTemporalMarkerOffset(3, () -> {
                                     claw.setPivotPower(0);
                                     arm.setArmPos(-2000);
                                 })
                                 .waitSeconds(6)
                                 .splineToLinearHeading(new Pose2d(41, 60, Math.toRadians(0)), Math.toRadians(0))
-                                .splineToLinearHeading(new Pose2d(59, 60, Math.toRadians(0)), Math.toRadians(0))
+                                .splineToLinearHeading(new Pose2d(59, 60.5, Math.toRadians(0)), Math.toRadians(0))
                                 .build();
 
 
@@ -121,20 +124,23 @@ public class BlueAuto extends OpMode {
                         TrajectorySequence rightMiddleTrajSeq = drive.trajectorySequenceBuilder(leftStartPose)
                                 .splineTo(new Vector2d(12, 34.5), Math.toRadians(-90))
                                 .setReversed(true)
-                                .splineToLinearHeading(new Pose2d(48, 35, Math.toRadians(0)), Math.toRadians(0))
+                                .splineToLinearHeading(new Pose2d(48.5, 35, Math.toRadians(0)), Math.toRadians(0))
                                 .UNSTABLE_addTemporalMarkerOffset(0, () -> {
                                     arm.setArmPos(2500);
+                                })
+                                .UNSTABLE_addTemporalMarkerOffset(1, () -> {
+                                    claw.setPivotPower(0);
                                 })
                                 .UNSTABLE_addTemporalMarkerOffset(2, () -> {
                                     claw.setPivotPower(1);
                                 })
-                                .UNSTABLE_addTemporalMarkerOffset(4, () -> {
+                                .UNSTABLE_addTemporalMarkerOffset(3, () -> {
                                     claw.setPivotPower(0);
                                     arm.setArmPos(-2000);
                                 })
                                 .waitSeconds(6)
                                 .splineToLinearHeading(new Pose2d(41, 60, Math.toRadians(0)), Math.toRadians(0))
-                                .splineToLinearHeading(new Pose2d(59, 60, Math.toRadians(0)), Math.toRadians(0))
+                                .splineToLinearHeading(new Pose2d(59, 60.5, Math.toRadians(0)), Math.toRadians(0))
                                 .build();
 
                         drive.followTrajectorySequence(rightMiddleTrajSeq);
@@ -144,20 +150,25 @@ public class BlueAuto extends OpMode {
                         TrajectorySequence rightRightTrajSeq = drive.trajectorySequenceBuilder(leftStartPose)
                                 .splineToLinearHeading(new Pose2d(10, 31, Math.toRadians(180)), Math.toRadians(180))
                                 .setReversed(true)
-                                .splineToLinearHeading(new Pose2d(48, 30, Math.toRadians(0)), Math.toRadians(0))
+                                .splineToLinearHeading(new Pose2d(48.5, 30, Math.toRadians(0)), Math.toRadians(0))
                                 .UNSTABLE_addTemporalMarkerOffset(0, () -> {
                                     arm.setArmPos(2500);
+                                })
+                                .UNSTABLE_addTemporalMarkerOffset(1, () -> {
+                                    claw.setPivotPower(0);
                                 })
                                 .UNSTABLE_addTemporalMarkerOffset(2, () -> {
                                     claw.setPivotPower(1);
                                 })
-                                .UNSTABLE_addTemporalMarkerOffset(4, () -> {
+                                .UNSTABLE_addTemporalMarkerOffset(3, () -> {
                                     claw.setPivotPower(0);
                                     arm.setArmPos(-2000);
                                 })
                                 .waitSeconds(6)
                                 .splineToLinearHeading(new Pose2d(41, 60, Math.toRadians(0)), Math.toRadians(0))
-                                .splineToLinearHeading(new Pose2d(59, 60, Math.toRadians(0)), Math.toRadians(0))
+                                .splineToLinearHeading(new Pose2d(59, 60.5
+
+                                        , Math.toRadians(0)), Math.toRadians(0))
                                 .build();
 
                         drive.followTrajectorySequence(rightRightTrajSeq);

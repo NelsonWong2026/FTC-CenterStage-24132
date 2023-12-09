@@ -84,22 +84,84 @@ public class AdvancedRightBlueAuto extends OpMode {
         drive.setPoseEstimate(rightStartPose);
         switch (recordedPropPosition) {
             case LEFT:
+                TrajectorySequence rightLeftTraj = drive.trajectorySequenceBuilder(rightStartPose)
+                        .turn(Math.toRadians(35))
+                        .lineToLinearHeading(new Pose2d(-34, 26, Math.toRadians(0)))
+                        .setReversed(true)
+                        .splineToLinearHeading(new Pose2d(-36, 60, Math.toRadians(0)), Math.toRadians(0))
+                        .setReversed(false)
+                        .waitSeconds(15)
+                        .splineToConstantHeading(new Vector2d(16, 60), Math.toRadians(0))
+                        .splineToLinearHeading(new Pose2d(19, 35, Math.toRadians(0)), Math.toRadians(0))
+                        .splineToSplineHeading(new Pose2d(48.5, 35, Math.toRadians(0)), Math.toRadians(0))
+                        .UNSTABLE_addTemporalMarkerOffset(0, () -> {
+                            arm.setArmPos(2500);
+                        })
+                        .UNSTABLE_addTemporalMarkerOffset(1, () -> {
+                            claw.setPivotPower(0);
+                        })
+                        .UNSTABLE_addTemporalMarkerOffset(2, () -> {
+                            claw.setPivotPower(1);
+                        })
+                        .UNSTABLE_addTemporalMarkerOffset(3, () -> {
+                            claw.setPivotPower(0);
+                            arm.setArmPos(-2000);
+                        })
+                        .build();
+                drive.followTrajectorySequence(rightLeftTraj);
 
                 break;
             case MIDDLE:
                 TrajectorySequence rightMiddleTraj = drive.trajectorySequenceBuilder(rightStartPose)
-                        .splineTo(new Vector2d(-36, 34.5), Math.toRadians(-90))
+                        .splineTo(new Vector2d(-36, 35), Math.toRadians(-90))
                         .setReversed(true)
                         .splineToLinearHeading(new Pose2d(-36, 60, Math.toRadians(0)), Math.toRadians(0))
                         .setReversed(false)
-                        .splineToConstantHeading(new Vector2d(24, 60), Math.toRadians(0))
-                        .splineToLinearHeading(new Pose2d(24, 35, Math.toRadians(0)), Math.toRadians(0))
-                        .splineToSplineHeading(new Pose2d(48, 35, Math.toRadians(0)), Math.toRadians(0))
+                        .waitSeconds(15)
+                        .splineToConstantHeading(new Vector2d(16, 60), Math.toRadians(0))
+                        .splineToLinearHeading(new Pose2d(19, 35, Math.toRadians(0)), Math.toRadians(0))
+                        .splineToSplineHeading(new Pose2d(48.5, 35, Math.toRadians(0)), Math.toRadians(0))
+                        .UNSTABLE_addTemporalMarkerOffset(0, () -> {
+                            arm.setArmPos(2500);
+                        })
+                        .UNSTABLE_addTemporalMarkerOffset(1, () -> {
+                            claw.setPivotPower(0);
+                        })
+                        .UNSTABLE_addTemporalMarkerOffset(2, () -> {
+                            claw.setPivotPower(1);
+                        })
+                        .UNSTABLE_addTemporalMarkerOffset(3, () -> {
+                            claw.setPivotPower(0);
+                            arm.setArmPos(-2000);
+                        })
                         .build();
                 drive.followTrajectorySequence(rightMiddleTraj);
                 break;
             case RIGHT:
-
+                TrajectorySequence rightRightTraj = drive.trajectorySequenceBuilder(rightStartPose)
+                        .splineTo(new Vector2d(-36, 34.5), Math.toRadians(-90))
+                        .setReversed(true)
+                        .splineToLinearHeading(new Pose2d(-36, 60, Math.toRadians(0)), Math.toRadians(0))
+                        .setReversed(false)
+                        .waitSeconds(15)
+                        .splineToConstantHeading(new Vector2d(16, 60), Math.toRadians(0))
+                        .splineToLinearHeading(new Pose2d(19, 35, Math.toRadians(0)), Math.toRadians(0))
+                        .splineToSplineHeading(new Pose2d(48.5, 35, Math.toRadians(0)), Math.toRadians(0))
+                        .UNSTABLE_addTemporalMarkerOffset(0, () -> {
+                            arm.setArmPos(2500);
+                        })
+                        .UNSTABLE_addTemporalMarkerOffset(1, () -> {
+                            claw.setPivotPower(0);
+                        })
+                        .UNSTABLE_addTemporalMarkerOffset(2, () -> {
+                            claw.setPivotPower(1);
+                        })
+                        .UNSTABLE_addTemporalMarkerOffset(3, () -> {
+                            claw.setPivotPower(0);
+                            arm.setArmPos(-2000);
+                        })
+                        .build();
+                drive.followTrajectorySequence(rightRightTraj);
                 break;
         }
 

@@ -15,11 +15,11 @@ public class StartingConfiguration {
 
     }
 
-    public AlliancePosition startConfiguration(Gamepad gamepad) {
-        if (gamepad.dpad_left) {
+    public AlliancePosition startConfiguration(Gamepad gamepad, Gamepad gamepad2) {
+        if (gamepad.dpad_left || gamepad2.dpad_left) {
             position = AlliancePosition.LEFT;
         }
-        else if (gamepad.dpad_right) {
+        else if (gamepad.dpad_right || gamepad2.dpad_right) {
             position = AlliancePosition.RIGHT;
         }
 
