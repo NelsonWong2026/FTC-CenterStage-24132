@@ -15,7 +15,7 @@ public class MeepMeepTesting {
 
         MeepMeep mm = new MeepMeep(800);
 
-        Pose2d startPose = new Pose2d(12, -60, Math.toRadians(90));
+        Pose2d startPose = new Pose2d(-36, 60, Math.toRadians(-90));
 
 
 
@@ -42,7 +42,7 @@ public class MeepMeepTesting {
                                 .splineToLinearHeading(new Pose2d(41, -60, Math.toRadians(0)), Math.toRadians(0))
                                 .splineToLinearHeading(new Pose2d(59, -60, Math.toRadians(0)), Math.toRadians(0))*/
 
-                                .splineTo(new Vector2d(12, -34.5), Math.toRadians(90))
+                                /*.splineTo(new Vector2d(12, -34.5), Math.toRadians(90))
                                 .setReversed(true)
                                 .splineToLinearHeading(new Pose2d(44, -35, Math.toRadians(0)), Math.toRadians(0))
                                 .UNSTABLE_addTemporalMarkerOffset(0, () -> {
@@ -55,7 +55,14 @@ public class MeepMeepTesting {
                                 })
                                 .waitSeconds(6)
                                 .splineToLinearHeading(new Pose2d(41, -60, Math.toRadians(0)), Math.toRadians(0))
-                                .splineToLinearHeading(new Pose2d(59, -60, Math.toRadians(0)), Math.toRadians(0))
+                                .splineToLinearHeading(new Pose2d(59, -60, Math.toRadians(0)), Math.toRadians(0))*/
+                                .splineTo(new Vector2d(-36, 35), Math.toRadians(-90))
+                                .setReversed(true)
+                                .splineToLinearHeading(new Pose2d(-36, 60, Math.toRadians(0)), Math.toRadians(0))
+                                .setReversed(false)
+                                .splineToConstantHeading(new Vector2d(16, 60), Math.toRadians(0))
+                                .splineToLinearHeading(new Pose2d(19, 35, Math.toRadians(0)), Math.toRadians(0))
+                                .splineToSplineHeading(new Pose2d(48, 35, Math.toRadians(0)), Math.toRadians(0))
                                 .build()
                 );
 

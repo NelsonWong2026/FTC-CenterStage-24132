@@ -28,7 +28,7 @@ import org.firstinspires.ftc.vision.VisionPortal;
 import org.opencv.core.Scalar;
 
 @Config
-@Autonomous(name = "Red Main Auto", group = "auto")
+@Autonomous(name = "Red Main Auto", group = "main auto")
 public class RedAuto extends OpMode {
     private VisionPortal visionPortal;
     private ContourDetectionProcessor contourDetectionProcessor;
@@ -106,9 +106,11 @@ public class RedAuto extends OpMode {
                         TrajectorySequence rightLeftTrajSeq = drive.trajectorySequenceBuilder(rightStartPose)
                                 .splineToLinearHeading(new Pose2d(10, -31, Math.toRadians(180)), Math.toRadians(180))
                                 .setReversed(true)
-                                .splineToLinearHeading(new Pose2d(44, -30, Math.toRadians(0)), Math.toRadians(0))
+                                .splineToLinearHeading(new Pose2d(48, -30, Math.toRadians(0)), Math.toRadians(0))
                                 .UNSTABLE_addTemporalMarkerOffset(0, () -> {
                                     arm.setArmPos(2500);
+                                })
+                                .UNSTABLE_addTemporalMarkerOffset(2, () -> {
                                     claw.setPivotPower(1);
                                 })
                                 .UNSTABLE_addTemporalMarkerOffset(4, () -> {
@@ -125,9 +127,11 @@ public class RedAuto extends OpMode {
                         TrajectorySequence rightMiddleTrajSeq = drive.trajectorySequenceBuilder(rightStartPose)
                                 .splineTo(new Vector2d(12, -34.5), Math.toRadians(90))
                                 .setReversed(true)
-                                .splineToLinearHeading(new Pose2d(44, -35, Math.toRadians(0)), Math.toRadians(0))
+                                .splineToLinearHeading(new Pose2d(48, -35, Math.toRadians(0)), Math.toRadians(0))
                                 .UNSTABLE_addTemporalMarkerOffset(0, () -> {
                                     arm.setArmPos(2500);
+                                })
+                                .UNSTABLE_addTemporalMarkerOffset(2, () -> {
                                     claw.setPivotPower(1);
                                 })
                                 .UNSTABLE_addTemporalMarkerOffset(4, () -> {
@@ -148,9 +152,11 @@ public class RedAuto extends OpMode {
                                 .lineToLinearHeading(new Pose2d(13.5, -30, Math.toRadians(0)))
                                 .setReversed(true)
                                 .splineToConstantHeading(new Vector2d(33, -55), Math.toRadians(45))
-                                .splineToSplineHeading(new Pose2d(44, -39, Math.toRadians(0)), Math.toRadians(0))
+                                .splineToSplineHeading(new Pose2d(48, -39, Math.toRadians(0)), Math.toRadians(0))
                                 .UNSTABLE_addTemporalMarkerOffset(0, () -> {
                                     arm.setArmPos(2500);
+                                })
+                                .UNSTABLE_addTemporalMarkerOffset(2, () -> {
                                     claw.setPivotPower(1);
                                 })
                                 .UNSTABLE_addTemporalMarkerOffset(4, () -> {
@@ -165,6 +171,7 @@ public class RedAuto extends OpMode {
                         drive.followTrajectorySequence(rightRightTrajSeq);
                         break;
                 }
+                break;
             case LEFT:
                 Pose2d leftStartPose = new Pose2d(-36, -60, Math.toRadians(90));
 
@@ -196,6 +203,7 @@ public class RedAuto extends OpMode {
                         break;
 
                 }
+                break;
         }
 
 

@@ -17,6 +17,10 @@ public class Launcher {
         this.launcher = hwMap.get(Servo.class, Constants.Launcher.Launcher);
     }
 
+    public void setLauncherPos(double Position) {
+        launcher.setPosition(Position);
+    }
+
     public void setControl(Gamepad gamepad) {
         if (gamepad.right_bumper) {
             launcher.setPosition(0.8);

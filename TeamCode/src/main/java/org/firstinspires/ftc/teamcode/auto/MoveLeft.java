@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.subsystem.Claw;
 import org.firstinspires.ftc.teamcode.subsystem.MecanumDrive;
 
 
-@Autonomous(name = "MoveLeft", group = "auto")
+@Autonomous(name = "MoveLeft", group = "bad auto")
 
 public class MoveLeft extends LinearOpMode{
 

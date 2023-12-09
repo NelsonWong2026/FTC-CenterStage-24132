@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.subsystem.Claw;
 import org.firstinspires.ftc.teamcode.subsystem.MecanumDrive;
 
 
-@Autonomous(name = "DelayedMoveLeft", group = "auto")
+@Autonomous(name = "DelayedMoveLeft", group = "bad auto")
 
 public class DelayedMoveLeft extends LinearOpMode{
 

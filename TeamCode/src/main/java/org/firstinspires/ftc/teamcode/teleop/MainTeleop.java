@@ -8,9 +8,7 @@ import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.subsystem.Claw;
 import org.firstinspires.ftc.teamcode.subsystem.Launcher;
 import org.firstinspires.ftc.teamcode.subsystem.Arm;
-import org.firstinspires.ftc.teamcode.subsystem.Lift;
 import org.firstinspires.ftc.teamcode.subsystem.MecanumDrive;
-import org.firstinspires.ftc.teamcode.subsystem.PIDF_Arm;
 
 @TeleOp(name="Main Teleop Mode", group="OpMode")
 public class MainTeleop extends OpMode {
@@ -34,6 +32,7 @@ public class MainTeleop extends OpMode {
         this.pidf_arm.init(hardwareMap);*/
         telemetry.addData("Status","Initialized");
         telemetry.update();
+        launcher.setLauncherPos(0.8);
     }
 
 

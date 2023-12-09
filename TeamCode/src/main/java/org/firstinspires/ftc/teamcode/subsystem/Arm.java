@@ -41,11 +41,11 @@ public class Arm {
 
     public void setControl(Gamepad gamepad) {
         Integer armTarget;
-        if (gamepad.dpad_up) {
+        if (gamepad.dpad_down) {
            // armTarget = 4600;
             arm.setPower(1);
         }
-        else if (gamepad.dpad_down) {
+        else if (gamepad.dpad_up) {
             //armTarget = 1;
             arm.setPower(-1);
         }

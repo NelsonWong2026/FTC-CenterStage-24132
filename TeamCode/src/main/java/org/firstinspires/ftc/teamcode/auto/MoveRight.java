@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.subsystem.Claw;
 import org.firstinspires.ftc.teamcode.subsystem.MecanumDrive;
 
-@Autonomous(name = "MoveRight", group = "auto")
+@Autonomous(name = "MoveRight", group = "bad auto")
 public class MoveRight extends LinearOpMode {
     MecanumDrive drive = new MecanumDrive();
     ElapsedTime runtime = new ElapsedTime();
