@@ -98,7 +98,7 @@ public class RedAuto extends OpMode {
 
         switch (setAlliancePos) {
             case RIGHT:
-                Pose2d rightStartPose = new Pose2d(12, -60, Math.toRadians(90));
+                Pose2d rightStartPose = new Pose2d(12, -62, Math.toRadians(90));
 
                 drive.setPoseEstimate(rightStartPose);
                 switch (recordedPropPosition) {
@@ -106,7 +106,7 @@ public class RedAuto extends OpMode {
                         TrajectorySequence rightLeftTrajSeq = drive.trajectorySequenceBuilder(rightStartPose)
                                 .splineToLinearHeading(new Pose2d(10, -31, Math.toRadians(180)), Math.toRadians(180))
                                 .setReversed(true)
-                                .splineToLinearHeading(new Pose2d(48.5, -30, Math.toRadians(0)), Math.toRadians(0))
+                                .splineToLinearHeading(new Pose2d(48, -30, Math.toRadians(0)), Math.toRadians(0))
                                 .UNSTABLE_addTemporalMarkerOffset(0, () -> {
                                     arm.setArmPos(2500);
                                 })
@@ -130,7 +130,7 @@ public class RedAuto extends OpMode {
                         TrajectorySequence rightMiddleTrajSeq = drive.trajectorySequenceBuilder(rightStartPose)
                                 .splineTo(new Vector2d(12, -34.5), Math.toRadians(90))
                                 .setReversed(true)
-                                .splineToLinearHeading(new Pose2d(48.5, -35, Math.toRadians(0)), Math.toRadians(0))
+                                .splineToLinearHeading(new Pose2d(51, -35, Math.toRadians(0)), Math.toRadians(0))
                                 .UNSTABLE_addTemporalMarkerOffset(0, () -> {
                                     arm.setArmPos(2500);
                                 })
@@ -158,7 +158,7 @@ public class RedAuto extends OpMode {
                                 .lineToLinearHeading(new Pose2d(13.5, -30, Math.toRadians(0)))
                                 .setReversed(true)
                                 .splineToConstantHeading(new Vector2d(33, -55), Math.toRadians(45))
-                                .splineToSplineHeading(new Pose2d(48.5, -39, Math.toRadians(0)), Math.toRadians(0))
+                                .splineToSplineHeading(new Pose2d(51, -39, Math.toRadians(0)), Math.toRadians(0))
                                 .UNSTABLE_addTemporalMarkerOffset(0, () -> {
                                     arm.setArmPos(2500);
                                 })
@@ -182,7 +182,7 @@ public class RedAuto extends OpMode {
                 }
                 break;
             case LEFT:
-                Pose2d leftStartPose = new Pose2d(-36, -60, Math.toRadians(90));
+                Pose2d leftStartPose = new Pose2d(-36, -62, Math.toRadians(90));
 
                 drive.setPoseEstimate(leftStartPose);
                 switch (recordedPropPosition) {

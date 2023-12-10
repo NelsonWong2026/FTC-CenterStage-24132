@@ -88,7 +88,7 @@ public class BlueAuto extends OpMode {
 
         switch (setAlliancePos) {
             case LEFT:
-                Pose2d leftStartPose = new Pose2d(12, 60, Math.toRadians(-90));
+                Pose2d leftStartPose = new Pose2d(12, 62, Math.toRadians(-90));
 
                 drive.setPoseEstimate(leftStartPose);
                 switch (recordedPropPosition) {
@@ -98,7 +98,7 @@ public class BlueAuto extends OpMode {
                                 .lineToLinearHeading(new Pose2d(14, 26, Math.toRadians(0)))
                                 .setReversed(true)
                                 .splineToConstantHeading(new Vector2d(33, 55), Math.toRadians(-45))
-                                .splineToSplineHeading(new Pose2d(48.5, 39, Math.toRadians(0)), Math.toRadians(0))
+                                .splineToSplineHeading(new Pose2d(48, 39, Math.toRadians(0)), Math.toRadians(0))
                                 .UNSTABLE_addTemporalMarkerOffset(0, () -> {
                                     arm.setArmPos(2500);
                                 })
@@ -124,7 +124,7 @@ public class BlueAuto extends OpMode {
                         TrajectorySequence rightMiddleTrajSeq = drive.trajectorySequenceBuilder(leftStartPose)
                                 .splineTo(new Vector2d(12, 34.5), Math.toRadians(-90))
                                 .setReversed(true)
-                                .splineToLinearHeading(new Pose2d(48.5, 35, Math.toRadians(0)), Math.toRadians(0))
+                                .splineToLinearHeading(new Pose2d(51, 35, Math.toRadians(0)), Math.toRadians(0))
                                 .UNSTABLE_addTemporalMarkerOffset(0, () -> {
                                     arm.setArmPos(2500);
                                 })
@@ -150,7 +150,7 @@ public class BlueAuto extends OpMode {
                         TrajectorySequence rightRightTrajSeq = drive.trajectorySequenceBuilder(leftStartPose)
                                 .splineToLinearHeading(new Pose2d(10, 31, Math.toRadians(180)), Math.toRadians(180))
                                 .setReversed(true)
-                                .splineToLinearHeading(new Pose2d(48.5, 30, Math.toRadians(0)), Math.toRadians(0))
+                                .splineToLinearHeading(new Pose2d(51, 30, Math.toRadians(0)), Math.toRadians(0))
                                 .UNSTABLE_addTemporalMarkerOffset(0, () -> {
                                     arm.setArmPos(2500);
                                 })
@@ -176,7 +176,7 @@ public class BlueAuto extends OpMode {
                 }
                 break;
             case RIGHT:
-                Pose2d rightStartPose = new Pose2d(-36, 60, Math.toRadians(-90));
+                Pose2d rightStartPose = new Pose2d(-36, 62, Math.toRadians(-90));
 
                 drive.setPoseEstimate(rightStartPose);
                 switch (recordedPropPosition) {

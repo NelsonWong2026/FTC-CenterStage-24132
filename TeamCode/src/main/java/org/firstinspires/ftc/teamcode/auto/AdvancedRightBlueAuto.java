@@ -79,7 +79,7 @@ public class AdvancedRightBlueAuto extends OpMode {
             recordedPropPosition = ContourDetectionProcessor.PropPositions.LEFT;
         }
 
-        Pose2d rightStartPose = new Pose2d(-36, 60, Math.toRadians(-90));
+        Pose2d rightStartPose = new Pose2d(-36, 62, Math.toRadians(-90));
 
         drive.setPoseEstimate(rightStartPose);
         switch (recordedPropPosition) {
@@ -93,7 +93,7 @@ public class AdvancedRightBlueAuto extends OpMode {
                         .waitSeconds(15)
                         .splineToConstantHeading(new Vector2d(16, 60), Math.toRadians(0))
                         .splineToLinearHeading(new Pose2d(19, 35, Math.toRadians(0)), Math.toRadians(0))
-                        .splineToSplineHeading(new Pose2d(48.5, 35, Math.toRadians(0)), Math.toRadians(0))
+                        .splineToSplineHeading(new Pose2d(51, 35, Math.toRadians(0)), Math.toRadians(0))
                         .UNSTABLE_addTemporalMarkerOffset(0, () -> {
                             arm.setArmPos(2500);
                         })
@@ -120,7 +120,7 @@ public class AdvancedRightBlueAuto extends OpMode {
                         .waitSeconds(15)
                         .splineToConstantHeading(new Vector2d(16, 60), Math.toRadians(0))
                         .splineToLinearHeading(new Pose2d(19, 35, Math.toRadians(0)), Math.toRadians(0))
-                        .splineToSplineHeading(new Pose2d(48.5, 35, Math.toRadians(0)), Math.toRadians(0))
+                        .splineToSplineHeading(new Pose2d(51, 35, Math.toRadians(0)), Math.toRadians(0))
                         .UNSTABLE_addTemporalMarkerOffset(0, () -> {
                             arm.setArmPos(2500);
                         })
@@ -146,7 +146,7 @@ public class AdvancedRightBlueAuto extends OpMode {
                         .waitSeconds(15)
                         .splineToConstantHeading(new Vector2d(16, 60), Math.toRadians(0))
                         .splineToLinearHeading(new Pose2d(19, 35, Math.toRadians(0)), Math.toRadians(0))
-                        .splineToSplineHeading(new Pose2d(48.5, 35, Math.toRadians(0)), Math.toRadians(0))
+                        .splineToSplineHeading(new Pose2d(51, 35, Math.toRadians(0)), Math.toRadians(0))
                         .UNSTABLE_addTemporalMarkerOffset(0, () -> {
                             arm.setArmPos(2500);
                         })
